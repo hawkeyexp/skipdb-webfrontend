@@ -1,0 +1,99 @@
+body {
+    color: black;
+    font-size: 16px;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(0deg, darkgray 0%, teal 70%);
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    overflow: auto;
+    overflow-y: auto;
+}
+
+.listing {
+    width: 830px;
+    height: 100%;
+    overflow: auto;
+    overflow-y: auto;
+}
+
+input[type=text] {
+    width: 400px;
+    padding: 2px 2px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border-radius; 4px;
+    color: black;
+    font-size: 16px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+select {
+    width: 400px;
+    padding: 2px 2px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border-radius; 4px;
+    color: black;
+    font-size: 16px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+button {
+    width: 260px;
+    padding: 6px 10px;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+input[type=submit] {
+    width: 260px;
+    padding: 6px 10px;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.desc {
+    background-color: lightgreen;
+    width: 400px;
+    margin: auto;
+    text-align: center;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.del {
+    background-color: crimson;
+    width: 400px;
+    margin: auto;
+    color: white;
+    text-align: center;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.tvshow {
+    background-color: #0066ff;
+    width: 800px;
+    margin: auto;
+    text-align: center;
+    color: #CCCCCC;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.episodes {
+    background-color: lightgreen;
+    width: 800px;
+    margin: auto;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+h2 {
+    color: darkturquoise;
+    text-align: center;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    text-shadow: 2px 2px #000000;
+}
