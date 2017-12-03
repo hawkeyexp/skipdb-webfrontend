@@ -143,8 +143,8 @@ else {
     else {
 	echo '<p>SQL-Commands: '.$dummy.'</p>';
     }
-    if ($dummycheck > 0){
-	echo '<p><h3><font color="crimson">Skipped: '.$dummycheck.'</font></h3></p>';
+    if ($dummyskip > 0){
+	echo '<p><h3><font color="crimson">Skipped: '.$dummyskip.'</font></h3></p>';
     }
     if ($error > 0){
 	echo '<p><font color="crimson">Errors: '.$error.'</font></p>';
