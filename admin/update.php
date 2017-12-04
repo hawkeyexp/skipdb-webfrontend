@@ -168,7 +168,7 @@ else {
     echo '<form action="update.php" method="get">';
     echo '<p><H2>Update Existing Episode Inside SkipDB</h2></p>';
     echo '<input type="hidden" name="id" value="'.$id.'" />';
-    echo '<p><div class="desc">Title:   '.$title.'</p>';
+    echo '<p><div class="info">Title:   '.$title.'</p>';
     echo '<input type="hidden" name="title" value="'.$title.'" />';
     echo '<p>Season:  '.$season.'</p>';
     echo '<input type="hidden" name="season" value="'.$season.'" />';

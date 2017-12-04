@@ -23,7 +23,7 @@ if (!isset($_GET['title']) or !isset($_GET['season']) or !isset($_GET['episodest
 	$sql="SELECT `SEASON` FROM `intro` WHERE `TITLE` = '".$_GET['title']."' AND `SEASON` != '0' GROUP BY `SEASON` ORDER BY `SEASON` ASC";
 	$ergebnis = mysql_query($sql, $verbindung);
 	while($zeile = mysql_fetch_array($ergebnis)){
-	    $selectseason = $selectseason."<option>".$zeile[0]."</option>";
+    	    $selectseason = $selectseason."<option>".$zeile[0]."</option>";
 	}
 	if (mysql_errno() == '0') {
 	    $dummy++;

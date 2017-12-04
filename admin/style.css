@@ -45,6 +45,7 @@ button {
     color: black;
     font-size: 14px;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
+    border-radius: 4px;
 }
 
 input[type=submit] {
@@ -54,6 +55,7 @@ input[type=submit] {
     color: black;
     font-size: 14px;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
+    border-radius: 4px;
 }
 
 .desc {
@@ -85,6 +87,15 @@ input[type=submit] {
 .episodes {
     background-color: lightgreen;
     width: 800px;
+    margin: auto;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.info {
+    background-color: lightgrey;
+    width: 400px;
     margin: auto;
     text-align: center;
     font-size: 14px;

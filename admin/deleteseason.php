@@ -89,7 +89,6 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
         echo $selectseason;
 	echo '</select>';
         echo '<p><input type="submit" value="Delete Now!" style="color: white; background-color: crimson;" /></p>';
-
         echo '</form>';
         echo '</div>';
         echo '<div align="center">';
