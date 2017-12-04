@@ -67,7 +67,7 @@ if (!isset($_GET['title']) or !isset($_GET['season']) or !isset($_GET['episodest
     else {
 	$selecttitle = "";
 	include 'inc/config.inc';
-	$sql="SELECT `TITLE` FROM `intro` GROUP BY `TITLE` ORDER BY `TITLE` ASC";
+	$sql="SELECT `TITLE` FROM `intro` WHERE `SEASON`!= 0 GROUP BY `TITLE` ORDER BY `TITLE` ASC";
 	$ergebnis = mysql_query($sql, $verbindung);
 	while($zeile = mysql_fetch_array($ergebnis)){
 	    $selecttitle = $selecttitle."<option>".$zeile[0]."</option>";
