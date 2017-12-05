@@ -3,9 +3,17 @@ $dummy = 0;
 $error = 0;
 echo '<html>';
 echo '<head>';
-echo '<link rel="stylesheet" type="text/css" href="style.css">';
+echo '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>';
+echo '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">';
 echo '</head>';
 echo '<body>';
+echo '<nav class="navbar navbar-inverse">';
+echo '<div class="container-fluid">';
+echo '<div class="navbar-header">';
+echo '<a class="navbar-brand" href="main.php">Skip Intro</a>';
+echo '</div>';
+echo '</div>';
+echo '</nav>';
 echo '<div align="center">';
 echo '<p><H2>MySQL Table Check SkipDB</h2></p>';
 echo '<div class="desc">Result</div><p>';
@@ -30,9 +38,6 @@ else {
 
 echo '</div>';
 echo '<br><div align="center">';
-echo '<form action="setupcheck.php">';
-echo '<button type="submit">Back</button>';
-echo '</form>';
 echo '</div>';
 echo '</body>';
 echo '</html>';

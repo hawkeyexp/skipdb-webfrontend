@@ -4,25 +4,35 @@ $error = 0;
 if ((!isset($_GET['executeintro'])) and (!isset($_GET['executeoutro']))) {
     echo '<html>';
     echo '<head>';
-    echo '<link rel="stylesheet" type="text/css" href="style.css">';
+    echo '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>';
+    echo '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">';
     echo '</head>';
     echo '<body>';
-    echo '<div align="center">';
-    echo '<p><H2>Create SkipDB Tables</h2></p>';
-    echo '<p><H3><font color="red" style="text-shadow: 2px 2px #000000">WARNING: existing tables will be erased without warning!</font></h3></p>';
-    echo '<form action="setup.php" method="get">';
-    echo '<input type="hidden" name="executeintro" value="y" />';
-    echo '<p><input type="submit" value="Create Intro Tables!" style="background-color: lightgreen;" /></p>';
-    echo '</form>';
-    echo '<form action="setup.php" method="get">';
-    echo '<input type="hidden" name="executeoutro" value="y" />';
-    echo '<p><input type="submit" value="Create Outro Tables!" style="background-color: lightgreen;" /></p>';
-    echo '</form>';
+    echo '<nav class="navbar navbar-inverse">';
+    echo '<div class="container-fluid">';
+    echo '<div class="navbar-header">';
+    echo '<a class="navbar-brand" href="main.php">Skip Intro</a>';
     echo '</div>';
-    echo '<br><div align="center">';
-    echo '<form action="setupcheck.php">';
-    echo '<button type="submit">Back</button>';
-    echo '</form>';
+    echo '</div>';
+    echo '</nav>';
+    echo '<div class="container">';
+    echo '<div class="row">
+            <div class="col-sm-12">
+			   <div class="alert alert-danger">
+  			     <strong>WARNING!</strong> Existing tables will be erased if they exist.
+		       </div>
+		    </div>
+		  </div>
+    	    <div class="btn-group btn-group-justified">
+			   <form action="setup.php" method="get">
+  			     <input type="hidden" name="executeintro" value="y" />
+  			     <input type="submit" value="Create Intro Tables!" class="btn btn-success" />
+  			    </form>
+  			    <form action="setup.php" method="get">
+  			     <input type="hidden" name="executeoutro" value="y" />
+  			     <input type="submit" value="Create Outro Tables!" class="btn btn-success" />
+  			    </form>
+		    </div>';
     echo '</div>';
     echo '</body>';
     echo '</html>';
@@ -73,9 +83,17 @@ else {
 	}
 	echo '<html>';
 	echo '<head>';
-	echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>';
+	echo '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">';
 	echo '</head>';
 	echo '<body>';
+	echo '<nav class="navbar navbar-inverse">';
+	echo '<div class="container-fluid">';
+	echo '<div class="navbar-header">';
+	echo '<a class="navbar-brand" href="main.php">Skip Intro</a>';
+	echo '</div>';
+	echo '</div>';
+	echo '</nav>';
 	echo '<div align="center">';
 	echo '<p><H2>Create SkipDB Intro Tables</h2></p>';
 	echo '<p>Done...</p>';
@@ -91,9 +109,6 @@ else {
 	else {
 	    echo '<p>Errors: '.$error.'</p>';
 	}
-	echo '<form action="main.php">';
-	echo '<button type="submit">Back</button>';
-	echo '</form>';
 	echo '</div>';
 	echo '</body>';
         echo '</html>';
@@ -142,9 +157,17 @@ else {
 	}
 	echo '<html>';
 	echo '<head>';
-	echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>';
+	echo '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">';
 	echo '</head>';
 	echo '<body>';
+	echo '<nav class="navbar navbar-inverse">';
+	echo '<div class="container-fluid">';
+	echo '<div class="navbar-header">';
+	echo '<a class="navbar-brand" href="main.php">Skip Intro</a>';
+	echo '</div>';
+	echo '</div>';
+	echo '</nav>';
 	echo '<div align="center">';
 	echo '<p><H2>Create SkipDB Outro Tables</h2></p>';
 	echo '<p>Done...</p>';
@@ -161,9 +184,6 @@ else {
 	else {
 	    echo '<p>Errors: '.$error.'</p>';
 	}
-	echo '<form action="main.php">';
-	echo '<button type="submit">Back</button>';
-	echo '</form>';
 	echo '</div>';
 	echo '</body>';
         echo '</html>';
