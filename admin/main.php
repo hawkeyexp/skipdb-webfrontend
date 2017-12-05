@@ -2,76 +2,106 @@
 $dummy = 0;
 $error = 0;
 if (!isset($_GET['title']) or !isset($_GET['season']) or !isset($_GET['episode'])) {
+    include 'inc/config.inc';
+    $result=mysql_query("SELECT count(DISTINCT TITLE) as total from intro");
+    $data=mysql_fetch_assoc($result);
+    $totaltvshows = $data['total'];
+    $result=mysql_query("SELECT count(DISTINCT TITLE,SEASON) as total from intro where START !=0 AND LENGHT != 0");
+    $data=mysql_fetch_assoc($result);
+    $totalseasons = $data['total'];
+    $result=mysql_query("SELECT count(DISTINCT TITLE,EPISODE) as total from intro where START !=0 AND LENGHT != 0");
+    $data=mysql_fetch_assoc($result);
+    $totalepisodes = $data['total'];
     echo '<html>';
     echo '<head>';
-    echo '<link rel="stylesheet" type="text/css" href="style.css">';
+    echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>';
+    echo '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>';
+    echo '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">';
+    echo '<link rel="stylesheet" type="text/css" href="styles.css">';
     echo '</head>';
     echo '<body>';
-    echo '<div align="center">';
-    echo '<p><H2>Welcome to SkipDB Interface</h2></p>';
-    echo '<table>';
-    echo '<tr>';
-    echo '<td>';
-    echo '<form action="insertshow.php">';
-    echo '<div><button type="submit">Insert TV Show Entry</button></div>';
-    echo '</form>';
-    echo '</td>';
-    echo '<td>';
-    echo '<form action="deleteshow.php">';
-    echo '<div><button type="submit">Delete TV Show Entry</button></div>';
-    echo '</form>';
-    echo '</td>';
-    echo '</tr>';
-    echo '<tr>';
-    echo '<td>';
-    echo '<form action="insertshowseason.php">';
-    echo '<div><button type="submit">Insert Season Entry For TV Show</button></div>';
-    echo '</form>';
-    echo '</td>';
-    echo '<td>';
-    echo '<form action="deleteseason.php">';
-    echo '<div><button type="submit">Delete Full Season</button></div>';
-    echo '</form>';
-    echo '</td>';
-    echo '</tr>';
-    echo '<tr>';
-    echo '<td>';
-    echo '<form action="insertepisode.php">';
-    echo '<div><button type="submit">Insert Single Episode</button></div>';
-    echo '</form>';
-    echo '</td>';
-    echo '<td>';
-    echo '<form action="delete.php">';
-    echo '<div><button type="submit">Delete Single Episode</button></div>';
-    echo '</form>';
-    echo '</td>';
-    echo '</tr>';
-    echo '<tr>';
-    echo '<td>';
-    echo '<form action="insertseason.php">';
-    echo '<div><button type="submit">Insert Multiple Episodes</button></div>';
-    echo '</form>';
-    echo '</td>';
-    echo '<td>';
-    echo '<form action="listing.php">';
-    echo '<div><button type="submit">List All TV Shows</button></div>';
-    echo '</form>';
-    echo '</td>';
-    echo '</tr>';
-    echo '<tr>';
-    echo '<td>';
-    echo '<form action="update.php">';
-    echo '<div><button type="submit">Update Episode</button></div>';
-    echo '</form>';
-    echo '</td>';
-    echo '<td>';
-    echo '<form action="setupcheck.php">';
-    echo '<div><button type="submit">Setup</button></div>';
-    echo '</form>';
-    echo '</td>';
-    echo '</tr>';
-    echo '</table>';
+    echo '<nav class="navbar navbar-inverse">';
+    echo '<div class="container-fluid">';
+    echo '<div class="navbar-header">';
+    echo '<a class="navbar-brand" href="#">Skip Intro</a>';
     echo '</div>';
+    echo '<ul class="nav navbar-nav">';
+    echo '<li class="dropdown">';
+    echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown">Add/Update <span class="caret"></span></a>';
+    echo '<ul class="dropdown-menu">';
+    echo '<li><a href="insertshow.php">Add TV Show</a></li>';
+    echo '<li><a href="insertshowseason.php">Add Season</a></li>';
+    echo '<li><a href="insertepisode.php">Add Episode</a></li>';
+    echo '<li><a href="insertseason.php">Add Multiple Episodes</a></li>';
+    echo '<li><a href="update.php">Update Episode</a></li>';
+    echo '</ul>';
+    echo '</li>';
+    echo '<li class="dropdown">';
+    echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown">Delete <span class="caret"></span></a>';
+    echo '<ul class="dropdown-menu">';
+    echo '<li><a href="deleteshow.php">Delete TV Show</a></li>';
+    echo '<li><a href="deleteseason.php">Delete Season</a></li>';
+    echo '<li><a href="delete.php">Delete Episode</a></li>';
+    echo '</ul>';
+    echo '</li>';
+    echo '</ul>';
+    echo '<ul class="nav navbar-nav navbar-right">';
+    echo '<li class="dropdown">';
+    echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown"<span class="glyphicon glyphicon-cog"></span> Setup <span class="caret"></span></a>';
+    echo '<ul class="dropdown-menu">';
+    echo '<li class="list-group-item list-group-item-danger"><a href="setup.php">Create Tables</a></li>';
+    echo '<li class="list-group-item list-group-item-success"><a href="check.php">Check SQL-Connection and Tables</a></li>';
+    echo '</ul>';
+    echo '</li>';
+    echo '</ul>';
+    echo '</div>';
+    echo '</nav>';
+    echo '<div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="intro-widget well well-sm">
+                        <div class="icon">
+                             <i class="glyphicon glyphicon-picture"></i>
+                        </div>
+                        <div class="text">
+                            <var>'.$totaltvshows.'</var>
+                            <label class="text-muted">TV Shows</label>
+                        </div>
+                        <div class="options">
+                            <a href="tvshowlisting.php" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="intro-widget well well-sm">
+                        <div class="icon">
+                             <i class="glyphicon glyphicon-facetime-video"></i>
+                        </div>
+                        <div class="text">
+                            <var>'.$totalseasons.'</var>
+                            <label class="text-muted">Seasons</label>
+                        </div>
+                        <div class="options">
+                            <a href="tvshowlisting.php" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="intro-widget well well-sm">
+                        <div class="icon">
+                             <i class="glyphicon glyphicon-film"></i>
+                        </div>
+                        <div class="text">
+                            <var>'.$totalepisodes.'</var>
+                            <label class="text-muted">Episodes</label>
+                        </div>
+                        <div class="options">
+                            <a href="tvshowlisting.php" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>';
     echo '</body>';
     echo '</html>';
     exit;

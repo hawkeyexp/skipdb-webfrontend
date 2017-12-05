@@ -1,0 +1,5 @@
+.intro-widget { text-align: center; padding-top: 20px; padding-bottom: 20px; }
+.intro-widget .icon { display: block; font-size: 96px; line-height: 96px; margin-bottom: 10px; text-align: center; }
+.intro-widget var { display: block; height: 64px; font-size: 64px; line-height: 64px; font-style: normal; }
+.intro-widget label { font-size: 17px; }
+.intro-widget .options { margin-top: 10px; }
