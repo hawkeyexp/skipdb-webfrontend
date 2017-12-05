@@ -49,8 +49,8 @@ if (!isset($_GET['title']) or !isset($_GET['season']) or !isset($_GET['episode']
     echo '<li class="dropdown">';
     echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown"<span class="glyphicon glyphicon-cog"></span> Setup <span class="caret"></span></a>';
     echo '<ul class="dropdown-menu">';
-    echo '<li class="list-group-item list-group-item-danger"><a href="setup.php">Create Tables</a></li>';
-    echo '<li class="list-group-item list-group-item-success"><a href="check.php">Check SQL-Connection and Tables</a></li>';
+    echo '<li><a href="setup.php">Create Tables</a></li>';
+    echo '<li><a href="check.php">Check SQL-Connection and Tables</a></li>';
     echo '</ul>';
     echo '</li>';
     echo '</ul>';
