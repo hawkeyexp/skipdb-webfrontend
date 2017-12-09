@@ -28,6 +28,38 @@ if ((!isset($_GET['executeintro'])) and (!isset($_GET['executeoutro'])) and (!is
     exit;
 }
 else {
+    if (!isset($_GET['go'])) {
+	include 'header.php';
+	echo '<div align="center">';
+	echo '<p><H2>Create SkipDB Tables</h2></p>';
+	echo '<p><div class="new">WARNING: Last chance to stop!</div></p>';
+	echo '<form action="setup.php" method="get">';
+	echo '<input type="hidden" name="go" value="y" />';
+	if (isset($_GET['executeintro'])) {
+	    echo '<input type="hidden" name="executeintro" value="y" />';
+	    echo '<p><div class="info">Create Table INTRO</div></p>';
+	}
+	if (isset($_GET['executeoutro'])) {
+	    echo '<input type="hidden" name="executeoutro" value="y" />';
+	    echo '<p><div class="info">Create Table OUTRO</div></p>';
+	}
+	if (isset($_GET['executeshows'])) {
+	    echo '<input type="hidden" name="executeshows" value="y" />';
+	    echo '<p><div class="info">Create Table SHOWS</div></p>';
+	}
+	if (isset($_GET['executeseasons'])) {
+	    echo '<input type="hidden" name="executeseasons" value="y" />';
+	    echo '<p><div class="info">Create Table SEASONS</div></p>';
+	}
+	echo '<p><input type="submit" value="Yes, Do It!" class="riskybutton" /></p>';
+	echo '</form>';
+
+	echo '</div>';
+	include 'backtools.php';
+	include 'footer.php';
+	exit;
+    }
+
     if (isset($_GET['executeintro'])) {
 	include 'inc/config.inc';
 	$sql = "DROP TABLE IF EXISTS `intro`;";

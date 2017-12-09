@@ -29,7 +29,7 @@ echo '</tr>';
 echo '<tr>';
 echo '<td>';
 echo '<form action="updater.php">';
-echo '<div><button type="submit">Online Update Interface</button></div>';
+echo '<div><button type="submit">Online Update</button></div>';
 echo '</form>';
 echo '</td>';
 echo '</tr>';

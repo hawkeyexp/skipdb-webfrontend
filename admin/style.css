@@ -114,7 +114,7 @@ select {
   width: 540px;
   height: 30px;
   margin: 2px auto;
-  border: 2px solid rgba(0, 0, 255, 1);
+  border: 2px solid rgba(0, 50, 255, 1);
   -webkit-border-radius: 4px;
   border-radius: 4px;
   font: normal 12px/30px "advent-pro", Helvetica, sans-serif;
@@ -278,6 +278,29 @@ button {
   transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
 }
 
+.logo {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 540px;
+  height: auto;
+  margin: 0px auto;
+  border: 2px solid rgb(242,242,242);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  font: normal 14px/auto "advent-pro", Helvetica, sans-serif;
+  color: rgb(30, 205, 151);
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  letter-spacing: 1px;
+  background: rgba(43,34,34,0.7);
+  -webkit-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -o-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+}
+
 button:hover {
   font: normal 14px/50px "Advent Pro", Helvetica, sans-serif;
   color: rgba(255,255,255,1);
@@ -336,7 +359,7 @@ button:active {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  width: 250px;
+  width: 520px;
   height: 50px;
   cursor: pointer;
   margin: 2px auto;
@@ -373,7 +396,7 @@ button:active {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  width: 250px;
+  width: 520px;
   height: 50px;
   cursor: pointer;
   margin: 2px auto;
@@ -395,7 +418,7 @@ button:active {
 
 .conbutton:hover {
   font: normal 14px/50px "Advent Pro", Helvetica, sans-serif;
-  color: rgba(90,90,90,1);
+  color: rgba(90,90,90,1);**/
   background: rgba(255, 255, 0, 0.69);
 }
 

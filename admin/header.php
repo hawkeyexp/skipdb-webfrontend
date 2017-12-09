@@ -11,9 +11,7 @@
     echo '<link rel="stylesheet" type="text/css" href="style.css">';
     echo '</head>';
     echo '<body>';
-    echo '<div align="center"><table>';
-    echo '<tr><td>';
-    echo '<div align="center"><img src="img/skipdb.png"></div>';
-    echo '</td></tr>';
-    echo '</table></div>';
+    echo '<div align="center">';
+    echo '<div class="logo" align="center"><img src="img/skipdb.png"></div>';
+    echo '</div>';
 ?>

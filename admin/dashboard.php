@@ -73,7 +73,7 @@ $episodesnodata = '0';
 include 'header.php';
 echo '<div align="center">';
 echo '<p><form action="index.php">';
-echo '<button type="submit" style="width:524px; font-size:1.2em">Show Main Menu Of SkipDB</button>';
+echo '<button type="submit" style="width:524px; font-size:1.2em">Show SkipDB Main Menu</button>';
 echo '</form></p>';
 echo '<table>';
 echo '<tr>';
