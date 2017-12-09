@@ -65,7 +65,19 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
         $sql="SELECT `SEASON` FROM `seasons` WHERE `TITLE` = '".mysql_real_escape_string($_GET['title'])."' AND `SEASON` != '0' GROUP BY `SEASON` ORDER BY `SEASON` ASC";
         $ergebnis = mysql_query($sql, $verbindung);
         while($zeile = mysql_fetch_array($ergebnis)){
-	    $selectseason = $selectseason."<option>".$zeile[0]."</option>";
+	    // check if season has episodes - if yes ignore in listing
+	    $sqlcheck="SELECT `SEASON` FROM `intro` WHERE `TITLE` = '".mysql_real_escape_string($_GET['title'])."' AND `SEASON` = '".$zeile[0]."' LIMIT 1";
+	    $ergebnischeck = mysql_query($sqlcheck, $verbindung);
+	    $check = mysql_fetch_row($ergebnischeck);
+	    if (mysql_errno() == '0') {
+		$dummy++;
+    	    }
+	    else {
+		include 'inc/sqlerror.php'; $error++;
+    	    }
+	    if ($check[0] != $zeile[0]) {
+		$selectseason = $selectseason."<option>".$zeile[0]."</option>";
+	    }
         }
 	if (mysql_errno() == '0') {
 	    $dummy++;
@@ -77,6 +89,7 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
 	echo '<select name="season">';
         echo $selectseason;
 	echo '</select>';
+	echo '<p><div class="info">Only seasons without episodes will be selectable!</div></p>';
         echo '<p><input type="submit" value="Delete Now!" class="riskybutton" /></p>';
         echo '</form>';
         echo '</div>';

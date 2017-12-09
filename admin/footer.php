@@ -1,6 +1,7 @@
 <?php
+$version = file('version.php')[0];
 echo '<div align="center">';
-echo '<p><div class="info">Created by Marc Hillesheim (c) 2017</div></p>';
+echo '<p><div class="info">Created by Marc Hillesheim (c) 2017 - v'.$version.'</div></p>';
 echo '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">';
 echo '<input type="hidden" name="cmd" value="_s-xclick">';
 echo '<input type="hidden" name="hosted_button_id" value="N7W7WET3MTTK4">';

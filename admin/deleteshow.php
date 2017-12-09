@@ -38,7 +38,19 @@ else {
     $sql="SELECT `TITLE` FROM `tvshows` WHERE 1 GROUP BY `TITLE` ORDER BY `TITLE` ASC";
     $ergebnis = mysql_query($sql, $verbindung);
     while($zeile = mysql_fetch_array($ergebnis)){
-        $selecttitle = $selecttitle."<option>".$zeile[0]."</option>";
+	// check if show  has seasons - if yes ignore in listing
+	$sqlcheck="SELECT `TITLE` FROM `seasons` WHERE `TITLE` = '".mysql_real_escape_string($zeile[0])."' LIMIT 1";
+	$ergebnischeck = mysql_query($sqlcheck, $verbindung);
+	if (mysql_errno() == '0') {
+    	    $dummy++;
+	}
+	else {
+    	    include 'inc/sqlerror.php'; $error++;
+	}
+	$check = mysql_fetch_row($ergebnischeck);
+	if ($check[0] != $zeile[0]) {
+	    $selecttitle = $selecttitle."<option>".$zeile[0]."</option>";
+	}
     }
     if (mysql_errno() == '0') {
         $dummy++;
