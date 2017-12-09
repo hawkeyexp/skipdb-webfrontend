@@ -2,8 +2,23 @@
 $dummy = 0;
 $error = 0;
 if ((isset($_GET['title'])) and (isset($_GET['season'])) and (isset($_GET['episode'])) and (isset($_GET['id'])) and (isset($_GET['start'])) and (isset($_GET['lenght']))){
+
+    $get_introstart = $_GET['start'];
+    $get_introend = $_GET['lenght'];
+
+    if (strpos($get_introstart,':') == true) {
+	$split = explode(':', $get_introstart);
+	$get_introstart = $split[0] * 3600 + $split[1] * 60 + $split[2];
+    }
+
+    if (strpos($get_introend,':') == true) {
+	$split = explode(':', $get_introend);
+	$end = $split[0] * 3600 + $split[1] * 60 + $split[2];
+	$get_introend = $end - $get_introstart;
+    }
+
     include 'inc/config.inc';
-    $sql = "UPDATE `intro` SET `START` = '".$_GET['start']."', `LENGHT` = '".$_GET['lenght']."' WHERE `ID` = '".$_GET['id']."'";
+    $sql = "UPDATE `intro` SET `START` = '".$get_introstart."', `LENGHT` = '".$get_introend."' WHERE `ID` = '".$_GET['id']."'";
     $ergebnis = mysql_query($sql, $verbindung);
     if (mysql_errno() == '0') {
     	$dummy++;
@@ -173,9 +188,9 @@ else {
     echo '<input type="hidden" name="season" value="'.$season.'" />';
     echo '<input type="hidden" name="episode" value="'.$episode.'" />';
     echo '<div class="info">'.$title.' - S'.sprintf("%'.02d",$season).'E'.sprintf("%'.02d",$episode).'</div>';
-    echo '<div class="desc">Start Position Intro (Seconds)</div>';
+    echo '<div class="desc">Start Position Intro (Seconds or hh:mm:ss)</div>';
     echo '<input type="text" name="start" value="'.$start.'" />';
-    echo '<div class="desc">Lenght Of Intro (Seconds)</div>';
+    echo '<div class="desc">Intro Lenght (Seconds) Or End (hh:mm:ss)</div>';
     echo '<input type="text" name="lenght" value="'.$lenght.'" />';
     echo '<p><input type="submit" value="Update Episode!" class="riskybutton" /></p>';
     echo '</form>';

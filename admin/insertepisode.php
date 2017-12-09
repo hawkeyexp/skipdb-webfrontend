@@ -45,9 +45,9 @@ if (!isset($_GET['title']) or !isset($_GET['season']) or !isset($_GET['episodest
 	echo $selectseason;
 	echo '</select>';
 	echo '</div>';
-	echo '<div class="desc"><label>Episode</label></div><div><input type="text" name="episodestart" /></div>';
-	echo '<div class="desc"><label>Intro Start Position (Seconds)</label></div><div><input type="text" name="introstart" /></div>';
-	echo '<div class="desc"><label>Intro Lenght (Seconds)</label></div><div><input type="text" name="introend" /></div>';
+	echo '<div class="desc"><label>Episode (Number)</label></div><div><input type="text" name="episodestart" /></div>';
+	echo '<div class="desc"><label>Intro Start Position (Seconds or hh:mm:ss)</label></div><div><input type="text" name="introstart" /></div>';
+	echo '<div class="desc"><label>Intro Lenght (Seconds) Or End (hh:mm:ss)</label></div><div><input type="text" name="introend" /></div>';
 	echo '<p><input type="submit" value="Insert Now!" class="riskybutton" /></p>';
 	echo '</form>';
 	echo '</div>';
@@ -96,6 +96,18 @@ else {
     $get_episodestart = $_GET['episodestart'];
     $get_introstart = $_GET['introstart'];
     $get_introend = $_GET['introend'];
+
+    if (strpos($get_introstart,':') == true) {
+	$split = explode(':', $get_introstart);
+	$get_introstart = $split[0] * 3600 + $split[1] * 60 + $split[2];
+    }
+
+    if (strpos($get_introend,':') == true) {
+	$split = explode(':', $get_introend);
+	$end = $split[0] * 3600 + $split[1] * 60 + $split[2];
+	$get_introend = $end - $get_introstart;
+    }
+
     include 'inc/config.inc';
     $sql="SELECT * FROM `intro` WHERE 1 AND `TITLE` = '".mysql_real_escape_string($get_title)."' AND `SEASON` = '".$get_season."' AND `EPISODE` = '".$get_episodestart."'";
     $ergebnis = mysql_query($sql, $verbindung);
