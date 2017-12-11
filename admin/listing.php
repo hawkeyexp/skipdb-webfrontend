@@ -18,7 +18,7 @@ while($zeile = mysql_fetch_array($ergebnis)){
         $ergebnise = mysql_query($sqle, $verbindung);
         $episodes = '';
         while($zeilee = mysql_fetch_array($ergebnise)){
-	    $episodes = $episodes.' | <a href="update.php?title='.$zeile[1].'&season='.$zeiles[1].'&episode='.$zeilee[0].'&back=history">'.$zeilee[0].'</a>';
+	    $episodes = $episodes.' | <a href="updateepisode.php?title='.$zeile[1].'&season='.$zeiles[1].'&episode='.$zeilee[0].'&back=history">'.$zeilee[0].'</a>';
         }
 	$episodes = preg_replace('/\|/','',$episodes,1);
 	echo '<div class="episodes">'.$episodes.'</div><p>';
