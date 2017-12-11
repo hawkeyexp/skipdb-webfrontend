@@ -1,5 +1,5 @@
 <?php
-    echo 'div align="center"><p class="new" style="height: auto; width: 810px;">You need to update you index.php for json interface!<br>It was downloaded as json.php to current folder.<br>Rename and place it as index.php!</p></div>';
+    echo 'div align="center"><p class="new" style="height: auto; width: 536px;">You need to update you index.php for json interface!<br>It was downloaded as json.php to current folder.<br>Rename and place it as index.php!</p></div>';
 
     // migrate fieldnames of tables
     include 'inc/config.inc';
