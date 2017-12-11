@@ -6,7 +6,7 @@ if (!isset($_GET['title']) or !isset($_GET['season']) or !isset($_GET['episode']
 	$selecttitle = "<option>".$_GET['title']."</option>";
 	$selectseason = "";
 	include 'inc/config.inc';
-	$sql="SELECT season.SEASON FROM season INNER JOIN tvshow ON season.TVSHOW_ID=tvshow.ID WHERE tvshow.TITLE = '".mysql_real_escape_string($_GET['title'])."';";
+	$sql="SELECT season.SEASON_NUMBER FROM season INNER JOIN tvshow ON season.TVSHOW_ID=tvshow.ID WHERE tvshow.TITLE = '".mysql_real_escape_string($_GET['title'])."';";
 	$ergebnis = mysql_query($sql, $verbindung);
 	while($zeile = mysql_fetch_array($ergebnis)){
 	    $selectseason = $selectseason."<option>".$zeile[0]."</option>";
@@ -111,7 +111,7 @@ else {
     $tvshowid = $zeile[0];
 
     // get seasonid by tvshowid and season
-    $sql="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON = '".$get_season."' LIMIT 1;";
+    $sql="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_NUMBER = '".$get_season."' LIMIT 1;";
     $ergebnis = mysql_query($sql, $verbindung);
     $zeile = mysql_fetch_row($ergebnis);
     if (mysql_errno() == '0') {
@@ -123,7 +123,7 @@ else {
     $seasonid = $zeile[0];
 
     // get episodeid by tvshowid, seasonid, episode
-    $sql="SELECT ID FROM episode WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_ID = '".$seasonid."' AND EPISODE = '".$get_episode."' LIMIT 1;";
+    $sql="SELECT ID FROM episode WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_ID = '".$seasonid."' AND EPISODE_NUMBER = '".$get_episode."' LIMIT 1;";
     $ergebnis = mysql_query($sql, $verbindung);
     $zeile = mysql_fetch_row($ergebnis);
     if (mysql_errno() == '0') {
@@ -149,7 +149,7 @@ else {
     }
     else {
 	$dummy = 0;
-	$sql = "INSERT INTO episode (ID, EPISODE, TVSHOW_ID, SEASON_ID, INTRO_START, INTRO_length, OUTRO_START) VALUES (NULL, '".$get_episode."', '".$tvshowid."', '".$seasonid."', '".$get_introstart."', '".$get_introlength."', '".$get_outrostart."');";
+	$sql = "INSERT INTO episode (ID, EPISODE_NUMBER, TVSHOW_ID, SEASON_ID, INTRO_START, INTRO_LENGTH, OUTRO_START) VALUES (NULL, '".$get_episode."', '".$tvshowid."', '".$seasonid."', '".$get_introstart."', '".$get_introlength."', '".$get_outrostart."');";
         $ergebnis = mysql_query($sql, $verbindung);
         if (mysql_errno() == '0') {
         	$dummy++;

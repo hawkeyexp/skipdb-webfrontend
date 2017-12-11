@@ -17,7 +17,7 @@ if ((isset($_GET['title'])) and (isset($_GET['season']))){
     $tvshowid = $zeile[0];
 
     // get seasonid by tvshowid and season
-    $sql="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON = '".$_GET['season']."' LIMIT 1;";
+    $sql="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_NUMBER = '".$_GET['season']."' LIMIT 1;";
     $ergebnis = mysql_query($sql, $verbindung);
     $zeile = mysql_fetch_row($ergebnis);
     if (mysql_errno() == '0') {
@@ -81,7 +81,7 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
     if ((isset($_GET['title'])) and (!isset($_GET['season']))){
 	$selectseason = "";
 	include 'inc/config.inc';
-	$sql="SELECT season.SEASON FROM season INNER JOIN tvshow ON season.TVSHOW_ID=tvshow.ID WHERE tvshow.TITLE = '".mysql_real_escape_string($_GET['title'])."' GROUP BY SEASON ORDER BY SEASON ASC;";
+	$sql="SELECT season.SEASON_NUMBER FROM season INNER JOIN tvshow ON season.TVSHOW_ID=tvshow.ID WHERE tvshow.TITLE = '".mysql_real_escape_string($_GET['title'])."' GROUP BY SEASON_NUMBER ORDER BY SEASON_NUMBER ASC;";
         $ergebnis = mysql_query($sql, $verbindung);
         while($zeile = mysql_fetch_array($ergebnis)){
 	    $selectseason = $selectseason."<option>".$zeile[0]."</option>";

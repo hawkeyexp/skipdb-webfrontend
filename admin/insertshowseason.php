@@ -6,7 +6,7 @@ if (isset($_GET['title']) and isset($_GET['season'])) {
     $get_season = $_GET['season'];
     include 'inc/config.inc';
 
-    $sqlcheck="SELECT season.ID, tvshow.ID, tvshow.TITLE, season.SEASON FROM season INNER JOIN tvshow ON season.TVSHOW_ID=tvshow.ID WHERE tvshow.TITLE = '".mysql_real_escape_string($get_title)."' AND season.SEASON = '".$get_season."';";
+    $sqlcheck="SELECT season.ID, tvshow.ID, tvshow.TITLE, season.SEASON_NUMBER FROM season INNER JOIN tvshow ON season.TVSHOW_ID=tvshow.ID WHERE tvshow.TITLE = '".mysql_real_escape_string($get_title)."' AND season.SEASON_NUMBER = '".$get_season."';";
     $ergebnischeck = mysql_query($sqlcheck, $verbindung);
     $zeilecheck = mysql_fetch_array($ergebnischeck);
     $tvshowid = $zeilecheck[1];
@@ -41,7 +41,7 @@ if (isset($_GET['title']) and isset($_GET['season'])) {
 	$tvshowid = $zeile[0];
 
 	// insert new season for tvshow
-	$sql = "INSERT INTO season (ID, SEASON, TVSHOW_ID) VALUES (NULL, '".$get_season."', '".$tvshowid."');";
+	$sql = "INSERT INTO season (ID, SEASON_NUMBER, TVSHOW_ID) VALUES (NULL, '".$get_season."', '".$tvshowid."');";
 	$ergebnis = mysql_query($sql, $verbindung);
 	if (mysql_errno() == '0') {
 	    $dummy++;

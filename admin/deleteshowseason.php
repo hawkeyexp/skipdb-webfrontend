@@ -3,7 +3,7 @@ $dummy = 0;
 $error = 0;
 if ((isset($_GET['title'])) and (isset($_GET['season'])) and (isset($_GET['tvshowid']))){
     include 'inc/config.inc';
-    $sql = "DELETE FROM season WHERE TVSHOW_ID = '".$_GET['tvshowid']."' AND SEASON = '".$_GET['season']."';";
+    $sql = "DELETE FROM season WHERE TVSHOW_ID = '".$_GET['tvshowid']."' AND SEASON_NUMBER = '".$_GET['season']."';";
     $ergebnis = mysql_query($sql, $verbindung);
     if (mysql_errno() == '0') {
     	$dummy++;
@@ -68,7 +68,7 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
 	    include 'inc/sqlerror.php'; $error++;
         }
 
-        $sql="SELECT ID, SEASON FROM season WHERE TVSHOW_ID = '".$tvshowid."' GROUP BY SEASON ORDER BY SEASON ASC";
+        $sql="SELECT ID, SEASON_NUMBER FROM season WHERE TVSHOW_ID = '".$tvshowid."' GROUP BY SEASON_NUMBER ORDER BY SEASON_NUMBER ASC";
         $ergebnis = mysql_query($sql, $verbindung);
         while($zeile = mysql_fetch_array($ergebnis)){
 	    // check if season has episodes - if yes ignore in listing

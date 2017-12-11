@@ -75,7 +75,7 @@ if (isset($_POST['ip']) and isset($_POST['port']) and isset($_POST['user']) and 
 	    // insert seasons (if missing)
 	    for ($counts = 1; $counts <= $season; $counts++){
 	        $skip1 = "";
-		$sql="SELECT SEASON, TVSHOW_ID FROM season WHERE TVSHOW_ID  = '".$tvshowid."' AND SEASON = '".$counts."' LIMIT 1;";
+		$sql="SELECT SEASON_NUMBER, TVSHOW_ID FROM season WHERE TVSHOW_ID  = '".$tvshowid."' AND SEASON_NUMBER = '".$counts."' LIMIT 1;";
 		$ergebnis = mysql_query($sql, $verbindung);
 		$zeile = mysql_fetch_row($ergebnis);
 
@@ -92,7 +92,7 @@ if (isset($_POST['ip']) and isset($_POST['port']) and isset($_POST['user']) and 
 
 		if ($skip1 != "yes") {
 		    $dummy = 0;
-		    $sql = "INSERT INTO season (ID, SEASON, TVSHOW_ID) VALUES (NULL,'".$counts."', '".$tvshowid."')";
+		    $sql = "INSERT INTO season (ID, SEASON_NUMBER, TVSHOW_ID) VALUES (NULL,'".$counts."', '".$tvshowid."')";
 		    $ergebnis = mysql_query($sql, $verbindung);
 		    if (mysql_errno() == '0') {
 		        $dummy++;
@@ -102,7 +102,7 @@ if (isset($_POST['ip']) and isset($_POST['port']) and isset($_POST['user']) and 
 		        include 'inc/sqlerror.php'; $error++;
 		    }
 		}
-		$sqlseaid="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON = '".$counts."' LIMIT 1;";
+		$sqlseaid="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_NUMBER = '".$counts."' LIMIT 1;";
 		$ergebnisseaid = mysql_query($sqlseaid, $verbindung);
 		$seasonid = mysql_fetch_row($ergebnisseaid)[0];
 
@@ -122,7 +122,7 @@ if (isset($_POST['ip']) and isset($_POST['port']) and isset($_POST['user']) and 
 		// create episode entries
 		for ($counte = 1; $counte <= $episodestotal; $counte++){
 		    $skipe = "";
-		    $sqle="SELECT EPISODE FROM episode WHERE SEASON_ID = '".$seasonid."' AND EPISODE = '".$counte."' LIMIT 1;";
+		    $sqle="SELECT EPISODE_NUMBER FROM episode WHERE SEASON_ID = '".$seasonid."' AND EPISODE_NUMBER = '".$counte."' LIMIT 1;";
     		    $ergebnise = mysql_query($sqle, $verbindung);
     	    	    $zeilee = mysql_fetch_row($ergebnise);
 		    if ($counte == $zeilee[0]) {
@@ -137,7 +137,7 @@ if (isset($_POST['ip']) and isset($_POST['port']) and isset($_POST['user']) and 
 
 		    if ($skipe != "yes") {
 		        $dummy = 0;
-		        $sqle = "INSERT INTO episode (ID, EPISODE, TVSHOW_ID, SEASON_ID) VALUES (NULL, '".$counte."','".$tvshowid."','".$seasonid."');";
+		        $sqle = "INSERT INTO episode (ID, EPISODE_NUMBER, TVSHOW_ID, SEASON_ID) VALUES (NULL, '".$counte."','".$tvshowid."','".$seasonid."');";
 		        $ergebnise = mysql_query($sqle, $verbindung);
 		        if (mysql_errno() == '0') {
 			    $dummy++;
@@ -166,7 +166,7 @@ if (isset($_POST['ip']) and isset($_POST['port']) and isset($_POST['user']) and 
 		// insert seasons (if missing)
 		for ($counts = 1; $counts <= $season; $counts++){
 		    $skip1 = "";
-		    $sql="SELECT SEASON, TVSHOW_ID FROM season WHERE TVSHOW_ID  = '".$tvshowid."' AND SEASON = '".$counts."' LIMIT 1;";
+		    $sql="SELECT SEASON_NUMBER, TVSHOW_ID FROM season WHERE TVSHOW_ID  = '".$tvshowid."' AND SEASON_NUMBER = '".$counts."' LIMIT 1;";
     		    $ergebnis = mysql_query($sql, $verbindung);
     		    $zeile = mysql_fetch_row($ergebnis);
 		    if ($tvshowid == $zeile[1] and $counts == $zeile[0]) {
@@ -180,7 +180,7 @@ if (isset($_POST['ip']) and isset($_POST['port']) and isset($_POST['user']) and 
     		    }
 		    if ($skip1 != "yes") {
 			$dummy = 0;
-			$sql = "INSERT INTO season (ID, SEASON, TVSHOW_ID) VALUES (NULL,'".$counts."', '".$tvshowid."')";
+			$sql = "INSERT INTO season (ID, SEASON_NUMBER, TVSHOW_ID) VALUES (NULL,'".$counts."', '".$tvshowid."')";
 			$ergebnis = mysql_query($sql, $verbindung);
 			if (mysql_errno() == '0') {
 			    $dummy++;
@@ -190,7 +190,7 @@ if (isset($_POST['ip']) and isset($_POST['port']) and isset($_POST['user']) and 
 			    include 'inc/sqlerror.php'; $error++;
 			}
 		    }
-		    $sqlseaid="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON = '".$counts."' LIMIT 1;";
+		    $sqlseaid="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_NUMBER = '".$counts."' LIMIT 1;";
 		    $ergebnisseaid = mysql_query($sqlseaid, $verbindung);
 		    $seasonid = mysql_fetch_row($ergebnisseaid)[0];
 
@@ -210,7 +210,7 @@ if (isset($_POST['ip']) and isset($_POST['port']) and isset($_POST['user']) and 
 		    // create episode entries
 		    for ($counte = 1; $counte <= $episodestotal; $counte++){
 			$skipe = "";
-			$sqle="SELECT EPISODE FROM episode WHERE SEASON_ID = '".$seasonid."' AND EPISODE = '".$counte."' LIMIT 1;";
+			$sqle="SELECT EPISODE_NUMBER FROM episode WHERE SEASON_ID = '".$seasonid."' AND EPISODE_NUMBER = '".$counte."' LIMIT 1;";
     			$ergebnise = mysql_query($sqle, $verbindung);
     	    		$zeilee = mysql_fetch_row($ergebnise);
 			if ($counte == $zeilee[0]) {
@@ -225,7 +225,7 @@ if (isset($_POST['ip']) and isset($_POST['port']) and isset($_POST['user']) and 
 
 			if ($skipe != "yes") {
 			    $dummy = 0;
-			    $sqle = "INSERT INTO episode (ID, EPISODE, TVSHOW_ID, SEASON_ID) VALUES (NULL, '".$counte."','".$tvshowid."','".$seasonid."');";
+			    $sqle = "INSERT INTO episode (ID, EPISODE_NUMBER, TVSHOW_ID, SEASON_ID) VALUES (NULL, '".$counte."','".$tvshowid."','".$seasonid."');";
 			    $ergebnise = mysql_query($sqle, $verbindung);
 			    if (mysql_errno() == '0') {
 		    	        $dummy++;

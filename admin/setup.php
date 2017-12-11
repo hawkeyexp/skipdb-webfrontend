@@ -87,7 +87,7 @@ else {
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
-	$sql = "CREATE TABLE `season` (`ID` int(11) NOT NULL,`SEASON` int(11) NOT NULL,`TVSHOW_ID` int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	$sql = "CREATE TABLE `season` (`ID` int(11) NOT NULL,`SEASON_NUMBER` int(11) NOT NULL,`TVSHOW_ID` int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	$ergebnis = mysql_query($sql, $verbindung);
 	if (mysql_errno() == '0') {
 		$dummy++;
@@ -127,7 +127,7 @@ else {
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
-	$sql = "CREATE TABLE `episode` (`ID` int(11) NOT NULL,`EPISODE` int(11) NOT NULL,`TVSHOW_ID` int(11) NOT NULL,`SEASON_ID` int(11) NOT NULL,`INTRO_START` int(11) NOT NULL DEFAULT '0',`INTRO_LENGTH` int(11) NOT NULL DEFAULT '0',`OUTRO_START` int(11) NOT NULL DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+	$sql = "CREATE TABLE `episode` (`ID` int(11) NOT NULL,`EPISODE_NUMBER` int(11) NOT NULL,`TVSHOW_ID` int(11) NOT NULL,`SEASON_ID` int(11) NOT NULL,`INTRO_START` int(11) NOT NULL DEFAULT '0',`INTRO_LENGTH` int(11) NOT NULL DEFAULT '0',`OUTRO_START` int(11) NOT NULL DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	$ergebnis = mysql_query($sql, $verbindung);
 	if (mysql_errno() == '0') {
 		$dummy++;
