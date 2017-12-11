@@ -8,7 +8,7 @@ if (isset($_GET['title']) and isset($_GET['season']) and isset($_GET['episode'])
 	exit;
     }
 
-    include 'inc/testconfig.inc';
+    include 'inc/config.inc';
 
     // get tvshowid by title
     $sql="SELECT ID, TITLE FROM tvshow WHERE TITLE = '".mysql_real_escape_string($_GET['title'])."' LIMIT 1;";
