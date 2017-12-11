@@ -1,9 +1,9 @@
 <?php
 $dummy = 0;
 $error = 0;
-if ((isset($_GET['title'])) and (isset($_GET['season']))){
+if ((isset($_GET['title'])) and (isset($_GET['season'])) and (isset($_GET['tvshowid']))){
     include 'inc/config.inc';
-    $sql = "DELETE FROM `seasons` WHERE `TITLE` = '".mysql_real_escape_string($_GET['title'])."' AND `SEASON` = '".$_GET['season']."'";
+    $sql = "DELETE FROM season WHERE TVSHOW_ID = '".$_GET['tvshowid']."' AND SEASON = '".$_GET['season']."';";
     $ergebnis = mysql_query($sql, $verbindung);
     if (mysql_errno() == '0') {
     	$dummy++;
@@ -16,16 +16,10 @@ if ((isset($_GET['title'])) and (isset($_GET['season']))){
     echo '<p><H2>Delete Season From TV Show Inside SkipDB</h2></p>';
     echo '<p><div class="desc">Done...</div></p>';
     if ($dummy > 0){
-	echo '<p><font color="lightgreen">SQL-Commands: '.$dummy.'</font></p>';
-    }
-    else {
-	echo '<p>SQL-Commands: '.$dummy.'</p>';
+	echo '<p class="info">SQL-Commands: '.$dummy.'</p>';
     }
     if ($error > 0){
-	echo '<p><font color="crimson">Errors: '.$error.'</font></p>';
-    }
-    else {
-	echo '<p>Errors: '.$error.'</p>';
+	echo '<p class="warn">Errors: '.$error.'</p>';
     }
     echo '</div>';
     include 'back.php';
@@ -36,7 +30,7 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
     if (!isset($_GET['title'])){
 	$selecttitle = "";
 	include 'inc/config.inc';
-	$sql="SELECT `TITLE` FROM `tvshows` WHERE 1 GROUP BY `TITLE` ORDER BY `TITLE` ASC";
+	$sql="SELECT TITLE FROM tvshow GROUP BY TITLE ORDER BY TITLE ASC;";
         $ergebnis = mysql_query($sql, $verbindung);
         while($zeile = mysql_fetch_array($ergebnis)){
 	    $selecttitle = $selecttitle."<option>".$zeile[0]."</option>";
@@ -62,21 +56,33 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
     if ((isset($_GET['title'])) and (!isset($_GET['season']))){
 	$selectseason = "";
 	include 'inc/config.inc';
-        $sql="SELECT `SEASON` FROM `seasons` WHERE `TITLE` = '".mysql_real_escape_string($_GET['title'])."' AND `SEASON` != '0' GROUP BY `SEASON` ORDER BY `SEASON` ASC";
+
+	// get tvshowid by title
+	$sql="SELECT ID FROM tvshow WHERE TITLE = '".mysql_real_escape_string($_GET['title'])."';";
+        $ergebnis = mysql_query($sql, $verbindung);
+        $tvshowid = mysql_fetch_row($ergebnis)[0];
+	if (mysql_errno() == '0') {
+	    $dummy++;
+        }
+	else {
+	    include 'inc/sqlerror.php'; $error++;
+        }
+
+        $sql="SELECT ID, SEASON FROM season WHERE TVSHOW_ID = '".$tvshowid."' GROUP BY SEASON ORDER BY SEASON ASC";
         $ergebnis = mysql_query($sql, $verbindung);
         while($zeile = mysql_fetch_array($ergebnis)){
 	    // check if season has episodes - if yes ignore in listing
-	    $sqlcheck="SELECT `SEASON` FROM `intro` WHERE `TITLE` = '".mysql_real_escape_string($_GET['title'])."' AND `SEASON` = '".$zeile[0]."' LIMIT 1";
+	    $sqlcheck="SELECT SEASON_ID FROM episode WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_ID = '".$zeile[0]."' LIMIT 1;";
 	    $ergebnischeck = mysql_query($sqlcheck, $verbindung);
-	    $check = mysql_fetch_row($ergebnischeck);
+	    $check = mysql_fetch_row($ergebnischeck)[0];
 	    if (mysql_errno() == '0') {
 		$dummy++;
     	    }
 	    else {
 		include 'inc/sqlerror.php'; $error++;
     	    }
-	    if ($check[0] != $zeile[0]) {
-		$selectseason = $selectseason."<option>".$zeile[0]."</option>";
+	    if ($check != $zeile[0]) {
+		$selectseason = $selectseason."<option>".$zeile[1]."</option>";
 	    }
         }
 	if (mysql_errno() == '0') {
@@ -89,6 +95,7 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
 	echo '<select name="season">';
         echo $selectseason;
 	echo '</select>';
+	echo '<input type="hidden" name="tvshowid" value="'.$tvshowid.'" />';
 	echo '<p><div class="info">Only seasons without episodes will be selectable!</div></p>';
         echo '<p><input type="submit" value="Delete Now!" class="riskybutton" /></p>';
         echo '</form>';

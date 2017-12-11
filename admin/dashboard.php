@@ -2,7 +2,7 @@
 
 include 'inc/config.inc';
 $dummy = 0;
-$sql="SELECT `TITLE`, COUNT(*) FROM `tvshows`";
+$sql="SELECT ID, COUNT(*) FROM tvshow";
 $ergebnis = mysql_query($sql, $verbindung);
 $zeile = mysql_fetch_array($ergebnis);
 if (mysql_errno() == '0') {
@@ -19,7 +19,7 @@ $tvshows = '0';
 }
 
 $dummy = 0;
-$sql="SELECT `TITLE`, COUNT(*) FROM `seasons`";
+$sql="SELECT ID, COUNT(*) FROM season";
 $ergebnis = mysql_query($sql, $verbindung);
 $zeile = mysql_fetch_array($ergebnis);
 if (mysql_errno() == '0') {
@@ -36,7 +36,7 @@ $seasons = '0';
 }
 
 $dummy = 0;
-$sql="SELECT `TITLE`, COUNT(*) FROM `intro` WHERE `START` != '99999'";
+$sql="SELECT ID, COUNT(*) FROM episode WHERE INTRO_LENGTH != '0'";
 $ergebnis = mysql_query($sql, $verbindung);
 $zeile = mysql_fetch_array($ergebnis);
 if (mysql_errno() == '0') {
@@ -53,7 +53,7 @@ $episodesdata = '0';
 }
 
 $dummy = 0;
-$sql="SELECT `TITLE`, COUNT(*) FROM `intro` WHERE `START` = '99999'";
+$sql="SELECT ID, COUNT(*) FROM episode WHERE INTRO_LENGTH = '0'";
 $ergebnis = mysql_query($sql, $verbindung);
 $zeile = mysql_fetch_array($ergebnis);
 if (mysql_errno() == '0') {

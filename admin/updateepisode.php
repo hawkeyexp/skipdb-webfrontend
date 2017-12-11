@@ -1,24 +1,24 @@
 <?php
 $dummy = 0;
 $error = 0;
-if ((isset($_GET['title'])) and (isset($_GET['season'])) and (isset($_GET['episode'])) and (isset($_GET['id'])) and (isset($_GET['start'])) and (isset($_GET['lenght']))){
+if ((isset($_GET['title'])) and (isset($_GET['season'])) and (isset($_GET['episode'])) and (isset($_GET['id'])) and (isset($_GET['start'])) and (isset($_GET['length']))and (isset($_GET['outro']))){
 
     $get_introstart = $_GET['start'];
-    $get_introend = $_GET['lenght'];
+    $get_inrolength = $_GET['length'];
 
     if (strpos($get_introstart,':') == true) {
 	$split = explode(':', $get_introstart);
 	$get_introstart = $split[0] * 3600 + $split[1] * 60 + $split[2];
     }
 
-    if (strpos($get_introend,':') == true) {
-	$split = explode(':', $get_introend);
+    if (strpos($get_inrolength,':') == true) {
+	$split = explode(':', $get_inrolength);
 	$end = $split[0] * 3600 + $split[1] * 60 + $split[2];
-	$get_introend = $end - $get_introstart;
+	$get_inrolength = $end - $get_introstart;
     }
 
     include 'inc/config.inc';
-    $sql = "UPDATE `intro` SET `START` = '".$get_introstart."', `LENGHT` = '".$get_introend."' WHERE `ID` = '".$_GET['id']."'";
+    $sql = "UPDATE episode SET INTRO_START = '".$get_introstart."', INTRO_LENGTH = '".$get_inrolength."', OUTRO_START = '".$_GET['outro']."' WHERE ID = '".$_GET['id']."';";
     $ergebnis = mysql_query($sql, $verbindung);
     if (mysql_errno() == '0') {
     	$dummy++;
@@ -31,16 +31,10 @@ if ((isset($_GET['title'])) and (isset($_GET['season'])) and (isset($_GET['episo
     echo '<p><H2>Update Existing Episode Inside SkipDB</h2></p>';
     echo '<p><div class="desc">Done...</div></p>';
     if ($dummy > 0){
-	echo '<p><font color="lightgreen">SQL-Commands: '.$dummy.'</font></p>';
-    }
-    else {
-	echo '<p>SQL-Commands: '.$dummy.'</p>';
+	echo '<p class="info">SQL-Commands: '.$dummy.'</p>';
     }
     if ($error > 0){
-	echo '<p><div class="del">Errors: '.$error.'</div></p>';
-    }
-    else {
-	echo '<p>Errors: '.$error.'</p>';
+	echo '<p class="warn">Errors: '.$error.'</p>';
     }
     echo '</div>';
     include 'back.php';
@@ -52,7 +46,7 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season'])) or (!isset($_GET['epis
     if (!isset($_GET['title'])){
 	$selecttitle = "";
 	include 'inc/config.inc';
-        $sql="SELECT `TITLE` FROM `tvshows` WHERE 1 GROUP BY `TITLE` ORDER BY `TITLE` ASC";
+	$sql="SELECT TITLE FROM tvshow GROUP BY TITLE ORDER BY TITLE ASC;";
         $ergebnis = mysql_query($sql, $verbindung);
         while($zeile = mysql_fetch_array($ergebnis)){
 	    $selecttitle = $selecttitle."<option>".$zeile[0]."</option>";
@@ -66,7 +60,7 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season'])) or (!isset($_GET['epis
 	include 'header.php';
 	echo '<div align="center">';
 	echo '<p><H2>Update Existing Episode Inside SkipDB</h2></p>';
-	echo '<form action="update.php" method="get">';
+	echo '<form action="updateepisode.php" method="get">';
 	echo '<div class="desc">Title</div>';
 	echo '<select name="title">';
 	echo $selecttitle;
@@ -86,11 +80,11 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season'])) or (!isset($_GET['epis
     if ((isset($_GET['title'])) and (!isset($_GET['season'])) and (!isset($_GET['episode']))){
 	$selectseason = "";
 	include 'inc/config.inc';
-        $sql="SELECT `SEASON` FROM `seasons` WHERE `TITLE` = '".mysql_real_escape_string($_GET['title'])."' GROUP BY `SEASON` ORDER BY `SEASON` ASC";
-        $ergebnis = mysql_query($sql, $verbindung);
-        while($zeile = mysql_fetch_array($ergebnis)){
-	    $selectseason = $selectseason."<option>".$zeile[0]."</option>";
-        }
+	$sql="SELECT season.ID, tvshow.TITLE, season.SEASON FROM season INNER JOIN tvshow ON season.TVSHOW_ID=tvshow.ID WHERE tvshow.TITLE = '".mysql_real_escape_string($_GET['title'])."';";
+	$ergebnis = mysql_query($sql, $verbindung);
+	while($zeile = mysql_fetch_array($ergebnis)){
+    	    $selectseason = $selectseason."<option>".$zeile[2]."</option>";
+	}
 	if (mysql_errno() == '0') {
 	    $dummy++;
         }
@@ -100,8 +94,8 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season'])) or (!isset($_GET['epis
 	$selecttitle = "<option>".$_GET['title']."</option>";
 	include 'header.php';
 	echo '<div align="center">';
-	echo '<p><H2>Update Existing Episode Inside SkipDB</h2></p>';
-	echo '<form action="update.php" method="get">';
+	echo '<p><h2>Update Existing Episode Inside SkipDB</h2></p>';
+	echo '<form action="updateepisode.php" method="get">';
 	echo '<div class="desc">Title</div>';
 	echo '<select name="title">';
 	echo $selecttitle;
@@ -121,7 +115,32 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season'])) or (!isset($_GET['epis
     if ((isset($_GET['title'])) and (isset($_GET['season'])) and (!isset($_GET['episode']))){
 	$selectepisode = "";
 	include 'inc/config.inc';
-        $sql="SELECT `EPISODE` FROM `intro` WHERE `TITLE` = '".mysql_real_escape_string($_GET['title'])."' AND `SEASON` = '".$_GET['season']."' AND `EPISODE` != '0' GROUP BY `EPISODE` ORDER BY `EPISODE` ASC";
+
+        // get tvshowid by title
+        $sql="SELECT ID FROM tvshow WHERE TITLE = '".mysql_real_escape_string($_GET['title'])."' LIMIT 1;";
+        $ergebnis = mysql_query($sql, $verbindung);
+        $zeile = mysql_fetch_row($ergebnis);
+        if (mysql_errno() == '0') {
+            $dummy++;
+        }
+        else {
+            include 'inc/sqlerror.php'; $error++;
+        }
+        $tvshowid = $zeile[0];
+
+        // get seasonid by tvshowid and season
+        $sql="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON = '".$_GET['season']."' LIMIT 1;";
+        $ergebnis = mysql_query($sql, $verbindung);
+        $zeile = mysql_fetch_row($ergebnis);
+        if (mysql_errno() == '0') {
+            $dummy++;
+        }
+        else {
+            include 'inc/sqlerror.php'; $error++;
+        }
+        $seasonid = $zeile[0];
+
+        $sql="SELECT EPISODE FROM episode WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_ID = '".$seasonid."' ORDER BY EPISODE ASC;";
         $ergebnis = mysql_query($sql, $verbindung);
         while($zeile = mysql_fetch_array($ergebnis)){
 	    $selectepisode = $selectepisode."<option>".$zeile[0]."</option>";
@@ -137,7 +156,7 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season'])) or (!isset($_GET['epis
 	include 'header.php';
 	echo '<div align="center">';
 	echo '<p><H2>Update Existing Episode Inside SkipDB</h2></p>';
-	echo '<form action="update.php" method="get">';
+	echo '<form action="updateepisode.php" method="get">';
 	echo '<div class="desc">Title</div>';
 	echo '<select name="title">';
         echo $selecttitle;
@@ -159,13 +178,35 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season'])) or (!isset($_GET['epis
     }
 }
 else {
-    $get_title = $_GET['title'];
-    $get_season = $_GET['season'];
-    $get_episode = $_GET['episode'];
     include 'inc/config.inc';
-    $sql="SELECT * FROM `intro` WHERE 1 AND `TITLE` = '".mysql_real_escape_string($get_title)."' AND `SEASON` = '".$get_season."' AND `EPISODE` = '".$get_episode."'";
+
+    // get tvshowid by title
+    $sql="SELECT ID FROM tvshow WHERE TITLE = '".mysql_real_escape_string($_GET['title'])."' LIMIT 1;";
     $ergebnis = mysql_query($sql, $verbindung);
-    $zeile = mysql_fetch_array($ergebnis);
+    $zeile = mysql_fetch_row($ergebnis);
+    if (mysql_errno() == '0') {
+        $dummy++;
+    }
+    else {
+        include 'inc/sqlerror.php'; $error++;
+    }
+    $tvshowid = $zeile[0];
+
+    // get seasonid by tvshowid and season
+    $sql="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON = '".$_GET['season']."' LIMIT 1;";
+    $ergebnis = mysql_query($sql, $verbindung);
+    $zeile = mysql_fetch_row($ergebnis);
+    if (mysql_errno() == '0') {
+        $dummy++;
+    }
+    else {
+        include 'inc/sqlerror.php'; $error++;
+    }
+    $seasonid = $zeile[0];
+
+    $sql="SELECT * FROM episode WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_ID = '".$seasonid."' AND EPISODE = '".$_GET['episode']."' LIMIT 1;";
+    $ergebnis = mysql_query($sql, $verbindung);
+    $zeile = mysql_fetch_row($ergebnis);
     if (mysql_errno() == '0') {
 	$dummy++;
     }
@@ -173,15 +214,16 @@ else {
 	include 'inc/sqlerror.php'; $error++;
     }
     $id = $zeile[0];
-    $title = $zeile[1];
-    $season = $zeile[2];
-    $episode = $zeile[3];
+    $title = $_GET['title'];
+    $season = $_GET['season'];
+    $episode = $_GET['episode'];
     $start = $zeile[4];
-    $lenght = $zeile[5];
+    $length = $zeile[5];
+    $outro = $zeile[6];
 
     include 'header.php';
     echo '<div align="center">';
-    echo '<form action="update.php" method="get">';
+    echo '<form action="updateepisode.php" method="get">';
     echo '<p><H2>Update Existing Episode Inside SkipDB</h2></p>';
     echo '<input type="hidden" name="id" value="'.$id.'" />';
     echo '<input type="hidden" name="title" value="'.$title.'" />';
@@ -190,8 +232,10 @@ else {
     echo '<div class="info">'.$title.' - S'.sprintf("%'.02d",$season).'E'.sprintf("%'.02d",$episode).'</div>';
     echo '<div class="desc">Start Position Intro (Seconds or hh:mm:ss)</div>';
     echo '<input type="text" name="start" value="'.$start.'" />';
-    echo '<div class="desc">Intro Lenght (Seconds) Or End (hh:mm:ss)</div>';
-    echo '<input type="text" name="lenght" value="'.$lenght.'" />';
+    echo '<div class="desc">Intro length (Seconds) Or End (hh:mm:ss)</div>';
+    echo '<input type="text" name="length" value="'.$length.'" />';
+    echo '<div class="desc"><label>Outro Start Position (Seconds or hh:mm:ss)</label></div>';
+    echo '<input type="text" name="outro" value="'.$outro.'" />';
     echo '<p><input type="submit" value="Update Episode!" class="riskybutton" /></p>';
     echo '</form>';
     echo '</div>';

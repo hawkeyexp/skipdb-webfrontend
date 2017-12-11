@@ -2,34 +2,21 @@
 $dummy = 0;
 $dummycheck = 0;
 $dummyskip = 0;
-if (!isset($_GET['title']) or !isset($_GET['season']) or !isset($_GET['episodestart']) or !isset($_GET['episodeend']) or !isset($_GET['introend']) or !isset($_GET['introend'])) {
-    $selecttitle = "";
-    include 'inc/config.inc';
-    $sql="SELECT `TITLE` FROM `tvshows` WHERE 1 GROUP BY `TITLE` ORDER BY `TITLE` ASC";
-    $ergebnis = mysql_query($sql, $verbindung);
-    while($zeile = mysql_fetch_array($ergebnis)){
-        $selecttitle = $selecttitle."<option>".$zeile[0]."</option>";
-    }
-    if (mysql_errno() == '0') {
-        $dummy++;
-    }
-    else {
-        include 'inc/sqlerror.php'; $error++;
-    }
+if (!isset($_GET['title']) or !isset($_GET['season']) or !isset($_GET['episodestart']) or !isset($_GET['episodeend']) or !isset($_GET['introlength'])) {
     if (isset($_GET['title'])) {
 	$selecttitle = "<option>".$_GET['title']."</option>";
 	$selectseason = "";
 	include 'inc/config.inc';
-	$sql="SELECT `SEASON` FROM `seasons` WHERE `TITLE` = '".mysql_real_escape_string($_GET['title'])."' GROUP BY `SEASON` ORDER BY `SEASON` ASC";
+	$sql="SELECT season.SEASON FROM season INNER JOIN tvshow ON season.TVSHOW_ID=tvshow.ID WHERE tvshow.TITLE = '".mysql_real_escape_string($_GET['title'])."';";
 	$ergebnis = mysql_query($sql, $verbindung);
 	while($zeile = mysql_fetch_array($ergebnis)){
-    	    $selectseason = $selectseason."<option>".$zeile[0]."</option>";
+	    $selectseason = $selectseason."<option>".$zeile[0]."</option>";
 	}
 	if (mysql_errno() == '0') {
-    	    $dummy++;
+	    $dummy++;
 	}
 	else {
-    	    include 'inc/sqlerror.php'; $error++;
+	    include 'inc/sqlerror.php'; $error++;
 	}
 	include 'header.php';
 	echo '<form action="insertmultipleepisodes.php" method="get">';
@@ -48,7 +35,8 @@ if (!isset($_GET['title']) or !isset($_GET['season']) or !isset($_GET['episodest
 	echo '<div class="desc"><label>First Episode</label></div><div><input type="text" name="episodestart" /></div>';
 	echo '<div class="desc"><label>Last Episode</label></div><div><input type="text" name="episodeend" /></div>';
 	echo '<div class="desc"><label>Intro Start Position (Seconds or hh:mm:ss)</label></div><div><input type="text" name="introstart" /></div>';
-	echo '<div class="desc"><label>Intro Lenght (Seconds) Or End (hh:mm:ss)</label></div><div><input type="text" name="introend" /></div>';
+	echo '<div class="desc"><label>Intro length (Seconds) Or End (hh:mm:ss)</label></div><div><input type="text" name="introlength" /></div>';
+	echo '<div class="desc"><label>Outro Start Position (Seconds or hh:mm:ss)</label></div><div><input type="text" name="outrostart" /></div>';
 	echo '<p><input type="submit" value="Insert Now!" class="riskybutton" /></p>';
 	echo '</form>';
 	echo '</div>';
@@ -57,6 +45,19 @@ if (!isset($_GET['title']) or !isset($_GET['season']) or !isset($_GET['episodest
 	exit;
     }
     else {
+	$selecttitle = "";
+	include 'inc/config.inc';
+	$sql="SELECT TITLE FROM tvshow GROUP BY TITLE ORDER BY TITLE ASC;";
+	$ergebnis = mysql_query($sql, $verbindung);
+	while($zeile = mysql_fetch_array($ergebnis)){
+	    $selecttitle = $selecttitle."<option>".$zeile[0]."</option>";
+	}
+	if (mysql_errno() == '0') {
+	    $dummy++;
+	}
+	else {
+	    include 'inc/sqlerror.php'; $error++;
+	}
 	include 'header.php';
 	echo '<form action="insertmultipleepisodes.php" method="get">';
 	echo '<div align="center">';
@@ -84,38 +85,67 @@ else {
     $get_episodestart = $_GET['episodestart'];
     $get_episodeend = $_GET['episodeend'];
     $get_introstart = $_GET['introstart'];
-    $get_introend = $_GET['introend'];
+    $get_introlength = $_GET['introlength'];
+    $get_outrostart = $_GET['outrostart'];
 
     if (strpos($get_introstart,':') == true) {
 	$split = explode(':', $get_introstart);
 	$get_introstart = $split[0] * 3600 + $split[1] * 60 + $split[2];
     }
 
-    if (strpos($get_introend,':') == true) {
-	$split = explode(':', $get_introend);
+    if (strpos($get_introlength,':') == true) {
+	$split = explode(':', $get_introlength);
 	$end = $split[0] * 3600 + $split[1] * 60 + $split[2];
-	$get_introend = $end - $get_introstart;
+	$get_introlength = $end - $get_introstart;
     }
 
-    $error = 0;
     include 'inc/config.inc';
+    $error = 0;
+
+    // get tvshowid by title
+    $sql="SELECT ID FROM tvshow WHERE TITLE = '".mysql_real_escape_string($get_title)."' LIMIT 1;";
+    $ergebnis = mysql_query($sql, $verbindung);
+    $zeile = mysql_fetch_row($ergebnis);
+    if (mysql_errno() == '0') {
+        $dummy++;
+    }
+    else {
+        include 'inc/sqlerror.php'; $error++;
+    }
+    $tvshowid = $zeile[0];
+
+    // get seasonid by tvshowid and season
+    $sql="SELECT ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON = '".$get_season."' LIMIT 1;";
+    $ergebnis = mysql_query($sql, $verbindung);
+    $zeile = mysql_fetch_row($ergebnis);
+    if (mysql_errno() == '0') {
+        $dummy++;
+    }
+    else {
+        include 'inc/sqlerror.php'; $error++;
+    }
+    $seasonid = $zeile[0];
+
     $count = $get_episodestart;
     for ($count; $count <= $get_episodeend; $count++) {
 
-	$sqlcheck="SELECT * FROM `intro` WHERE 1 AND `TITLE` = '".mysql_real_escape_string($get_title)."' AND `SEASON` = '".$get_season."' AND `EPISODE` = '".$count."'";
-	$ergebnischeck = mysql_query($sqlcheck, $verbindung);
-	$zeilecheck = mysql_fetch_array($ergebnischeck);
+	// get episodeid by tvshowid, seasonid, episode
+	$sql="SELECT ID FROM episode WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_ID = '".$seasonid."' AND EPISODE = '".$count."' LIMIT 1;";
+	$ergebnis = mysql_query($sql, $verbindung);
+	$zeile = mysql_fetch_row($ergebnis);
 	if (mysql_errno() == '0') {
-	    $dummycheck++;
+	    $dummy++;
 	}
 	else {
 	    include 'inc/sqlerror.php'; $error++;
 	}
-	if ($zeilecheck[0] != "") {
+	$episodeid = $zeile[0];
+
+	if ($episodeid != "") {
 	    $dummyskip++;
 	}
 	else {
-	    $sql = "INSERT INTO `intro` (`ID`, `TITLE`, `SEASON`, `EPISODE`, `START`, `LENGHT`) VALUES (NULL, '".mysql_real_escape_string($get_title)."', '".$get_season."', '".$count."', '".$get_introstart."', '".$get_introend."')";
+	    $sql = "INSERT INTO episode (ID, EPISODE, TVSHOW_ID, SEASON_ID, INTRO_START, INTRO_length, OUTRO_START) VALUES (NULL, '".$count."', '".$tvshowid."', '".$seasonid."', '".$get_introstart."', '".$get_introlength."', '".$get_outrostart."');";
 	    $ergebnis = mysql_query($sql, $verbindung);
 	    if (mysql_errno() == '0') {
 		$dummy++;
@@ -130,19 +160,13 @@ else {
     echo '<p><H2>Insert Multiple Episodes Inside SkipDB</h2></p>';
     echo '<p><div class="desc">Done...</div></p>';
     if ($dummy > 0){
-	echo '<p><font color="lightgreen">SQL-Commands: '.$dummy.'</font></p>';
-    }
-    else {
-	echo '<p>SQL-Commands: '.$dummy.'</p>';
+	echo '<p class="info">SQL-Commands: '.$dummy.'</p>';
     }
     if ($dummyskip > 0){
 	echo '<p><h3><div class="warn">Skipped: '.$dummyskip.' (Existing)</div></h3></p>';
     }
     if ($error > 0){
-	echo '<p><font color="crimson">Errors: '.$error.'</font></p>';
-    }
-    else {
-	echo '<p>Errors: '.$error.'</p>';
+	echo '<p class="warn">Errors: '.$error.'</p>';
     }
     echo '<form action="index.php">';
     echo '<button type="submit">Back</button>';
@@ -151,4 +175,3 @@ else {
     include 'footer.php';
 }
 ?>
-
