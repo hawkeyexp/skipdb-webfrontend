@@ -49,20 +49,20 @@ if (isset($_GET['title']) and isset($_GET['season']) and isset($_GET['episode'])
 
     $episode = $zeile[1];
     $start = $zeile[4];
-    $lenght = $zeile[5];
+    $length = $zeile[5];
     $outro = $zeile[6];
 
     // if db value is 0 for length or outro set it to 99999
-    if ($lenght == '0') {
+    if ($length == '0') {
 	$start = '99999';
-	$lenght = '99999';
+	$length = '99999';
     }
 
     if ($outro == '0') {
 	$outro = '99999';
     }
 
-    $arr = array('title' => $title,'season' => $season,'episode' => $episode,'start' => $start, 'lenght' => $lenght, 'outro' => $outro);
+    $arr = array('title' => $title,'season' => $season,'episode' => $episode,'start' => $start, 'length' => $length, 'outro' => $outro);
     echo json_encode($arr);
 }
 else {

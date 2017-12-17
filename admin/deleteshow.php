@@ -70,13 +70,24 @@ else {
     echo '<select name="title">';
     echo $selecttitle;
     echo '</select>';
+    echo '<p><div class="info">Only tvshows without seasons / episodes will be selectable</div></p>';
     echo '<p><input type="submit" value="Delete Now!" class="riskybutton" /></p>';
     echo '</form>';
-    echo '</div>';
-    echo '<div align="center">';
+    echo '<table>';
+    echo '<tr>';
+    echo '<td>';
+    echo '<form action="menu_delete.php">';
+    echo '<button type="submit">Back</button>';
+    echo '</form>';
+    echo '</td>';
+    echo '<td>';
     echo '<form action="index.php">';
     echo '<button type="submit">Home</button>';
     echo '</form>';
+    echo '</td>';
+    echo '</tr>';
+    echo '</table>';
+    echo '</div>';
     echo '</div>';
     include 'footer.php';
 }

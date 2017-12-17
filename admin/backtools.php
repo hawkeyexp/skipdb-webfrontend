@@ -4,7 +4,7 @@ echo '<table>';
 echo '<tr>';
 echo '<td>';
 echo '<form action="tools.php">';
-echo '<button type="submit">Back</button>';
+echo '<button type="submit" class="backbutton">Back</button>';
 echo '</form>';
 echo '</td>';
 echo '<td>';

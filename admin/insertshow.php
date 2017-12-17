@@ -10,11 +10,20 @@ if ((!isset($_GET['title']) or !isset($_GET['imdb']) or $_GET['title'] == "")) {
     echo '<div class="desc"><label>IMDB Number</label></div><div><input type="text" name="imdb" /></div>';
     echo '<p><input type="submit" value="Insert Now!" class="riskybutton" /></p>';
     echo '</form>';
-    echo '</div>';
-    echo '<div align="center">';
+    echo '<table>';
+    echo '<tr>';
+    echo '<td>';
+    echo '<form action="menu_insert.php">';
+    echo '<button type="submit">Back</button>';
+    echo '</form>';
+    echo '</td>';
+    echo '<td>';
     echo '<form action="index.php">';
     echo '<button type="submit">Home</button>';
     echo '</form>';
+    echo '</td>';
+    echo '</tr>';
+    echo '</table>';
     echo '</div>';
     include 'footer.php';
     exit;
@@ -37,9 +46,22 @@ else {
 	include 'header.php';
         echo '<div align="center">';
 	echo '<p><h2>Insert TV Show Entry Inside SkipDB</h2></p>';
-        echo '<h3><p class="warn">Show exists!</div></p></h3>';
+        echo '<h3><p class="warn">Show exists!</p></h3>';
+        echo '<table>';
+        echo '<tr>';
+        echo '<td>';
+	echo '<form action="menu_insert.php">';
+	echo '<button type="submit">Back</button>';
+	echo '</form>';
+        echo '</td>';
+        echo '<td>';
+	echo '<form action="index.php">';
+	echo '<button type="submit">Home</button>';
+	echo '</form>';
+        echo '</td>';
+        echo '</tr>';
+        echo '</table>';
         echo '</div>';
-	include 'back.php';
 	include 'footer.php';
     }
     else {

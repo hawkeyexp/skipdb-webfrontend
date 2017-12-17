@@ -99,7 +99,7 @@ select {
   text-align: center;
   -o-text-overflow: clip;
   text-overflow: clip;
-  letter-spacing: 1px;
+  letter-spacing: 0px;
   background: rgb(30, 205, 151);
   -webkit-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
   -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
@@ -136,13 +136,59 @@ select {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   width: 540px;
-  height: 30px;
+  height: auto;
   margin: 2px auto;
   border: 2px solid rgb(30,205,151);
   -webkit-border-radius: 4px;
   border-radius: 4px;
   font: normal 12px/30px "advent-pro", Helvetica, sans-serif;
   color: rgb(30, 205, 151);
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  letter-spacing: 0px;
+  background: rgba(43,34,34,0.7);
+  -webkit-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -o-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+}
+
+.episodesmissing {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 540px;
+  height: auto;
+  margin: 2px auto;
+  border: 2px solid rgba(232, 85, 71,1);
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  font: normal 12px/30px "advent-pro", Helvetica, sans-serif;
+  color: rgba(232, 85, 71,1);
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  letter-spacing: 0px;
+  background: rgba(43,34,34,0.7);
+  -webkit-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -o-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+}
+
+.episodespartitial {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 540px;
+  height: auto;
+  margin: 2px auto;
+  border: 2px solid rgba(255, 255, 0, 0.69);
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  font: normal 12px/30px "advent-pro", Helvetica, sans-serif;
+  color: rgba(255, 255, 0, 0.69);
   text-align: center;
   -o-text-overflow: clip;
   text-overflow: clip;
@@ -162,6 +208,22 @@ a:visited {
   color: rgb(30,205,151);
 }
 
+.episodesmissing a {
+  color: rgba(232, 85, 71,1);
+}
+
+.episodesmissing a:visited {
+  color: rgba(232, 85, 71,1);
+}
+
+.episodespartitial a {
+  color: rgba(255, 255, 0, 0.69);
+}
+
+.episodespartitial a:visited {
+  color: rgba(255, 255, 0, 0.69);
+}
+
 .info {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -174,6 +236,29 @@ a:visited {
   border-radius: 4px;
   font: normal 14px/30px "advent-pro", Helvetica, sans-serif;
   color: rgba(255,255,255,0.69);
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  letter-spacing: 1px;
+  background: rgba(43,34,34,0.7);
+  -webkit-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -o-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+}
+
+.del {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 540px;
+  height: 30px;
+  margin: 2px auto;
+  border: 2px solid rgba(232, 85, 71,1);
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  font: normal 14px/30px "advent-pro", Helvetica, sans-serif;
+  color: rgba(232, 85, 71,1);
   text-align: center;
   -o-text-overflow: clip;
   text-overflow: clip;
@@ -438,9 +523,9 @@ button:active {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  width: 250px;
+  width: 266px;
   height: 100px;
-  margin: 14px 14px;
+  margin: 2px auto 12px auto;
   border: 2px solid rgb(30,205,151);
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -455,4 +540,86 @@ button:active {
   -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
   -o-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
   transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+}
+
+.backbutton {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 250px;
+  height: 50px;
+  cursor: pointer;
+  margin: 2px auto;
+  border: 2px solid rgb(200,105,151);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  font: normal 14px/50px "advent-pro", Helvetica, sans-serif;
+  color: rgb(200,105,151);
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  letter-spacing: 1px;
+  background: rgba(43,34,34,0.7);
+  -webkit-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -o-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+}
+
+
+.backbutton:hover {
+  font: normal 14px/50px "Advent Pro", Helvetica, sans-serif;
+  color: rgba(255,255,255,1);
+  background: rgba(200, 105, 151,0.69);
+}
+
+.backbutton:active {
+  border: 2px solid rgba(200, 105, 151,0.69);
+  background: rgba(200, 105, 151,0.69);
+  color: rgba(255,255,255,1);
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+#baseProgress {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 540px;
+  height: 30px;
+  margin: 2px auto;
+  border: 2px solid rgb(0,255,0);
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  font: normal 14px/30px "advent-pro", Helvetica, sans-serif;
+  color: rgb(255,255,255);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  letter-spacing: 1px;
+  background: rgba(43,34,34,0.7);
+  position: relative;
+  -webkit-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  -o-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+  transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
+}
+
+#percent {
+  width: 540px;
+  height: 30px;
+  font: normal 14px/30px "advent-pro", Helvetica, sans-serif;
+  color: rgb(255,255,255);
+  position: absolute;
+  z-index:2;
+}
+
+#bar {
+  width: 40px;
+  height: 30px;
+  background-color: green;
+  position: absolute;
+  z-index:1;
+  text-align: left;
 }

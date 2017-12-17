@@ -98,6 +98,7 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
 	echo '</select>';
         echo '<p><input type="submit" value="Delete Now!" class="riskybutton" /></p>';
         echo '</form>';
+
         echo '</div>';
 	include 'back.php';
 	include 'footer.php';
@@ -114,11 +115,21 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
     }
     echo '<p><input type="submit" value="Continue" class="conbutton" /></p>';
     echo '</form>';
-    echo '</div>';
-    echo '<div align="center">';
+    echo '<table>';
+    echo '<tr>';
+    echo '<td>';
+    echo '<form action="menu_delete.php">';
+    echo '<button type="submit">Back</button>';
+    echo '</form>';
+    echo '</td>';
+    echo '<td>';
     echo '<form action="index.php">';
     echo '<button type="submit">Home</button>';
     echo '</form>';
+    echo '</td>';
+    echo '</tr>';
+    echo '</table>';
+    echo '</div>';
     echo '</div>';
     include 'footer.php';
 }

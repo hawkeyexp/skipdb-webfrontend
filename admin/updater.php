@@ -111,9 +111,7 @@ if ($getVersions != '')
 }
 else echo '<p>Could not find latest realeases.</p>';
 
-echo '<form action="tools.php">';
-echo '<div><button type="submit">Back</button></div>';
-echo '</form>';
 echo '</div>';
+include 'backtools.php';
 include 'footer.php';
 ?>
