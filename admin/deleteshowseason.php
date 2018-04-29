@@ -4,8 +4,8 @@ $error = 0;
 if ((isset($_GET['title'])) and (isset($_GET['season'])) and (isset($_GET['tvshowid']))){
     include 'inc/config.inc';
     $sql = "DELETE FROM season WHERE TVSHOW_ID = '".$_GET['tvshowid']."' AND SEASON_NUMBER = '".$_GET['season']."';";
-    $ergebnis = mysql_query($sql, $verbindung);
-    if (mysql_errno() == '0') {
+    $ergebnis = mysqli_query($verbindung, $sql);
+    if (mysqli_errno($verbindung) == '0') {
     	$dummy++;
     }
     else {
@@ -31,11 +31,11 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
 	$selecttitle = "";
 	include 'inc/config.inc';
 	$sql="SELECT TITLE FROM tvshow GROUP BY TITLE ORDER BY TITLE ASC;";
-        $ergebnis = mysql_query($sql, $verbindung);
-        while($zeile = mysql_fetch_array($ergebnis)){
+        $ergebnis = mysqli_query($verbindung, $sql);
+        while($zeile = mysqli_fetch_array($ergebnis, MYSQLI_BOTH)){
 	    $selecttitle = $selecttitle."<option>".$zeile[0]."</option>";
         }
-	if (mysql_errno() == '0') {
+	if (mysqli_errno($verbindung) == '0') {
 	    $dummy++;
         }
 	else {
@@ -58,10 +58,10 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
 	include 'inc/config.inc';
 
 	// get tvshowid by title
-	$sql="SELECT ID FROM tvshow WHERE TITLE = '".mysql_real_escape_string($_GET['title'])."';";
-        $ergebnis = mysql_query($sql, $verbindung);
-        $tvshowid = mysql_fetch_row($ergebnis)[0];
-	if (mysql_errno() == '0') {
+	$sql="SELECT ID FROM tvshow WHERE TITLE = '".mysqli_real_escape_string($verbindung, $_GET['title'])."';";
+        $ergebnis = mysqli_query($verbindung, $sql);
+        $tvshowid = mysqli_fetch_row($ergebnis)[0];
+	if (mysqli_errno($verbindung) == '0') {
 	    $dummy++;
         }
 	else {
@@ -69,13 +69,13 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
         }
 
         $sql="SELECT ID, SEASON_NUMBER FROM season WHERE TVSHOW_ID = '".$tvshowid."' GROUP BY SEASON_NUMBER ORDER BY SEASON_NUMBER ASC";
-        $ergebnis = mysql_query($sql, $verbindung);
-        while($zeile = mysql_fetch_array($ergebnis)){
+        $ergebnis = mysqli_query($verbindung, $sql);
+        while($zeile = mysqli_fetch_array($ergebnis, MYSQLI_BOTH)){
 	    // check if season has episodes - if yes ignore in listing
 	    $sqlcheck="SELECT SEASON_ID FROM episode WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_ID = '".$zeile[0]."' LIMIT 1;";
-	    $ergebnischeck = mysql_query($sqlcheck, $verbindung);
-	    $check = mysql_fetch_row($ergebnischeck)[0];
-	    if (mysql_errno() == '0') {
+	    $ergebnischeck = mysqli_query($verbindung, $sqlcheck);
+	    $check = mysqli_fetch_row($ergebnischeck)[0];
+	    if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
     	    }
 	    else {
@@ -85,7 +85,7 @@ if ((!isset($_GET['title'])) or (!isset($_GET['season']))){
 		$selectseason = $selectseason."<option>".$zeile[1]."</option>";
 	    }
         }
-	if (mysql_errno() == '0') {
+	if (mysqli_errno($verbindung) == '0') {
 	    $dummy++;
         }
 	else {

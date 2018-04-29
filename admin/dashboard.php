@@ -3,9 +3,9 @@
 include 'inc/config.inc';
 $dummy = 0;
 $sql="SELECT ID, COUNT(*) FROM tvshow";
-$ergebnis = mysql_query($sql, $verbindung);
-$zeile = mysql_fetch_array($ergebnis);
-if (mysql_errno() == '0') {
+$ergebnis = mysqli_query($verbindung, $sql);
+$zeile = mysqli_fetch_array($ergebnis, MYSQLI_BOTH);
+if (mysqli_errno($verbindung) == '0') {
     $dummy++;
 }
 else {
@@ -20,9 +20,9 @@ $tvshows = '0';
 
 $dummy = 0;
 $sql="SELECT ID, COUNT(*) FROM season";
-$ergebnis = mysql_query($sql, $verbindung);
-$zeile = mysql_fetch_array($ergebnis);
-if (mysql_errno() == '0') {
+$ergebnis = mysqli_query($verbindung, $sql);
+$zeile = mysqli_fetch_array($ergebnis, MYSQLI_BOTH);
+if (mysqli_errno($verbindung) == '0') {
     $dummy++;
 }
 else {
@@ -37,9 +37,9 @@ $seasons = '0';
 
 $dummy = 0;
 $sql="SELECT ID, COUNT(*) FROM episode WHERE INTRO_LENGTH != '0'";
-$ergebnis = mysql_query($sql, $verbindung);
-$zeile = mysql_fetch_array($ergebnis);
-if (mysql_errno() == '0') {
+$ergebnis = mysqli_query($verbindung, $sql);
+$zeile = mysqli_fetch_array($ergebnis, MYSQLI_BOTH);
+if (mysqli_errno($verbindung) == '0') {
     $dummy++;
 }
 else {
@@ -54,9 +54,9 @@ $episodesdata = '0';
 
 $dummy = 0;
 $sql="SELECT ID, COUNT(*) FROM episode WHERE INTRO_LENGTH = '0'";
-$ergebnis = mysql_query($sql, $verbindung);
-$zeile = mysql_fetch_array($ergebnis);
-if (mysql_errno() == '0') {
+$ergebnis = mysqli_query($verbindung, $sql);
+$zeile = mysqli_fetch_array($ergebnis, MYSQLI_BOTH);
+if (mysqli_errno($verbindung) == '0') {
     $dummy++;
 }
 else {

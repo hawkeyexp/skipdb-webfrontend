@@ -8,16 +8,16 @@ echo '<div class="info">Result</div><p>';
 
 include 'inc/config.inc';
 $sql = "SHOW FULL TABLES FROM `".$datenbank."`;";
-$ergebnis = mysql_query($sql, $verbindung);
-while($tbl = mysql_fetch_array($ergebnis)) {
+$ergebnis = mysqli_query($verbindung, $sql);
+while($tbl = mysqli_fetch_array($ergebnis)) {
     echo '<div class="desc">'.$tbl[0].'</div>';
     $sql1 = "DESCRIBE `".$tbl[0]."`;";
-    $ergebnis1 = mysql_query($sql1, $verbindung);
-    while($zeile = mysql_fetch_array($ergebnis1)) {
+    $ergebnis1 = mysqli_query($verbindung, $sql1);
+    while($zeile = mysqli_fetch_array($ergebnis1, MYSQLI_BOTH)) {
 	echo '<div class="info">'.$zeile[0].'</div>';
     }
 }
-if (mysql_errno() == '0') {
+if (mysqli_errno($verbindung) == '0') {
     $dummy++;
 }
 else {

@@ -39,40 +39,40 @@ else {
     if (isset($_GET['execute'])) {
 	include 'inc/config.inc';
 	$sql = "DROP TABLE IF EXISTS `tvshow`;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "CREATE TABLE `tvshow` (`ID` int(11) NOT NULL,`TITLE` text NOT NULL,`IMDBNUMBER` int(11) DEFAULT '0',`KODI_ID` int(11) DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "ALTER TABLE `tvshow` ADD PRIMARY KEY (`ID`);";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "ALTER TABLE `tvshow` MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "COMMIT;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
@@ -80,80 +80,80 @@ else {
 	}
 
 	$sql = "DROP TABLE IF EXISTS `season`;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "CREATE TABLE `season` (`ID` int(11) NOT NULL,`SEASON_NUMBER` int(11) NOT NULL,`TVSHOW_ID` int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "ALTER TABLE `season` ADD PRIMARY KEY (`ID`);";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "ALTER TABLE `season` MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "COMMIT;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "DROP TABLE IF EXISTS `episode`;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "CREATE TABLE `episode` (`ID` int(11) NOT NULL,`EPISODE_NUMBER` int(11) NOT NULL,`TVSHOW_ID` int(11) NOT NULL,`SEASON_ID` int(11) NOT NULL,`INTRO_START` int(11) NOT NULL DEFAULT '0',`INTRO_LENGTH` int(11) NOT NULL DEFAULT '0',`OUTRO_START` int(11) NOT NULL DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "ALTER TABLE `episode` ADD PRIMARY KEY (`ID`);";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "ALTER TABLE `episode` MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {
 		include 'inc/sqlerror.php'; $error++;
 	}
 	$sql = "COMMIT;";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 		$dummy++;
 	}
 	else {

@@ -11,10 +11,10 @@ if (isset($_GET['title']) and isset($_GET['season']) and isset($_GET['episode'])
     include 'inc/config.inc';
 
     // get tvshowid by title
-    $sql="SELECT ID, TITLE FROM tvshow WHERE TITLE = '".mysql_real_escape_string($_GET['title'])."' LIMIT 1;";
-    $ergebnis = mysql_query($sql, $verbindung);
-    $zeile = mysql_fetch_row($ergebnis);
-    if (mysql_errno() == '0') {
+    $sql="SELECT ID, TITLE FROM tvshow WHERE TITLE = '".mysqli_real_escape_string($verbindung, $_GET['title'])."' LIMIT 1;";
+    $ergebnis = mysqli_query($verbindung, $sql);
+    $zeile = mysqli_fetch_row($ergebnis);
+    if (mysqli_errno($verbindung) == '0') {
         $dummy++;
     }
     else {
@@ -25,9 +25,9 @@ if (isset($_GET['title']) and isset($_GET['season']) and isset($_GET['episode'])
 
     // get seasonid by tvshowid and season
     $sql="SELECT ID, SEASON_NUMBER FROM season WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_NUMBER = '".$_GET['season']."' LIMIT 1;";
-    $ergebnis = mysql_query($sql, $verbindung);
-    $zeile = mysql_fetch_row($ergebnis);
-    if (mysql_errno() == '0') {
+    $ergebnis = mysqli_query($verbindung, $sql);
+    $zeile = mysqli_fetch_row($ergebnis);
+    if (mysqli_errno($verbindung) == '0') {
         $dummy++;
     }
     else {
@@ -38,9 +38,9 @@ if (isset($_GET['title']) and isset($_GET['season']) and isset($_GET['episode'])
 
     // get episodeid by tvshowid, seasonid and episode
     $sql="SELECT * FROM episode WHERE TVSHOW_ID = '".$tvshowid."' AND SEASON_ID = '".$seasonid."' AND EPISODE_NUMBER = '".$_GET['episode']."' LIMIT 1;";
-    $ergebnis = mysql_query($sql, $verbindung);
-    $zeile = mysql_fetch_row($ergebnis);
-    if (mysql_errno() == '0') {
+    $ergebnis = mysqli_query($verbindung, $sql);
+    $zeile = mysqli_fetch_row($ergebnis);
+    if (mysqli_errno($verbindung) == '0') {
         $dummy++;
     }
     else {

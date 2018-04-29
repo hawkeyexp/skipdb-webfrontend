@@ -3,9 +3,9 @@ $dummy = 0;
 $error = 0;
 if (isset($_GET['title'])){
     include 'inc/config.inc';
-    $sql = "DELETE FROM tvshow WHERE TITLE = '".mysql_real_escape_string($_GET['title'])."';";
-    $ergebnis = mysql_query($sql, $verbindung);
-    if (mysql_errno() == '0') {
+    $sql = "DELETE FROM tvshow WHERE TITLE = '".mysqli_real_escape_string($verbindung, $_GET['title'])."';";
+    $ergebnis = mysqli_query($verbindung, $sql);
+    if (mysqli_errno($verbindung) == '0') {
     	$dummy++;
     }
     else {
@@ -30,12 +30,12 @@ else {
     $selecttitle = "";
     include 'inc/config.inc';
     $sql="SELECT TITLE FROM tvshow GROUP BY `TITLE` ORDER BY `TITLE` ASC;";
-    $ergebnis = mysql_query($sql, $verbindung);
-    while($zeile = mysql_fetch_array($ergebnis)){
-	$sqlid="SELECT ID FROM tvshow WHERE TITLE = '".mysql_real_escape_string($zeile[0])."' LIMIT 1;";
-	$ergebnisid = mysql_query($sqlid, $verbindung);
-	$tvshowid = mysql_fetch_row($ergebnisid)[0];
-	if (mysql_errno() == '0') {
+    $ergebnis = mysqli_query($verbindung, $sql);
+    while($zeile = mysqli_fetch_array($ergebnis, MYSQLI_BOTH)){
+	$sqlid="SELECT ID FROM tvshow WHERE TITLE = '".mysqli_real_escape_string($verbindung, $zeile[0])."' LIMIT 1;";
+	$ergebnisid = mysqli_query($verbindung, $sqlid);
+	$tvshowid = mysqli_fetch_row($ergebnisid)[0];
+	if (mysqli_errno($verbindung) == '0') {
     	    $dummy++;
 	}
 	else {
@@ -44,19 +44,19 @@ else {
 
 	// check if show  has seasons - if yes ignore in listing
 	$sqlcheck="SELECT TVSHOW_ID FROM season WHERE TVSHOW_ID = '".$tvshowid."' LIMIT 1;";
-	$ergebnischeck = mysql_query($sqlcheck, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnischeck = mysqli_query($verbindung, $sqlcheck);
+	if (mysqli_errno($verbindung) == '0') {
     	    $dummy++;
 	}
 	else {
     	    include 'inc/sqlerror.php'; $error++;
 	}
-	$check = mysql_fetch_row($ergebnischeck)[0];
+	$check = mysqli_fetch_row($ergebnischeck)[0];
 	if ($check != $tvshowid) {
 	    $selecttitle = $selecttitle."<option>".$zeile[0]."</option>";
 	}
     }
-    if (mysql_errno() == '0') {
+    if (mysqli_errno($verbindung) == '0') {
         $dummy++;
     }
     else {

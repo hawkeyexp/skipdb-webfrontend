@@ -13,6 +13,6 @@
     echo '</head>';
     echo '<body>';
     echo '<div align="center">';
-    echo '<div class="logo" align="center"><img src="img/skipdb.png"></div>';
+    echo '<div class="logo" align="center"><a href="index.php"><img src="img/skipdb.png"></a></div>';
     echo '</div>';
 ?>

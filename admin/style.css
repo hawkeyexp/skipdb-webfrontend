@@ -1,3 +1,10 @@
+@media screen and (max-width: 800px) {
+    #container, #header, #content, #footer, h2, #html, #button {
+	float: none;
+	with: 100px;
+    }
+}
+
 html,body {
     color: black;
     font-size: 16px;

@@ -1,3 +1,3 @@
 <?php
- echo mysql_error() .": " . mysql_errno() . "<br>";
+ echo mysqli_error() .": " . mysqli_errno($verbindung) . "<br>";
 ?>

@@ -6,12 +6,12 @@ if (isset($_GET['title']) and isset($_GET['season'])) {
     $get_season = $_GET['season'];
     include 'inc/config.inc';
 
-    $sqlcheck="SELECT season.ID, tvshow.ID, tvshow.TITLE, season.SEASON_NUMBER FROM season INNER JOIN tvshow ON season.TVSHOW_ID=tvshow.ID WHERE tvshow.TITLE = '".mysql_real_escape_string($get_title)."' AND season.SEASON_NUMBER = '".$get_season."';";
-    $ergebnischeck = mysql_query($sqlcheck, $verbindung);
-    $zeilecheck = mysql_fetch_array($ergebnischeck);
+    $sqlcheck="SELECT season.ID, tvshow.ID, tvshow.TITLE, season.SEASON_NUMBER FROM season INNER JOIN tvshow ON season.TVSHOW_ID=tvshow.ID WHERE tvshow.TITLE = '".mysqli_real_escape_string($verbindung, $get_title)."' AND season.SEASON_NUMBER = '".$get_season."';";
+    $ergebnischeck = mysqli_query($verbindung, $sqlcheck);
+    $zeilecheck = mysqli_fetch_array($ergebnischeck, MYSQLI_BOTH);
     $tvshowid = $zeilecheck[1];
 
-    if (mysql_errno() == '0') {
+    if (mysqli_errno($verbindung) == '0') {
         $dummy++;
     }
     else {
@@ -29,10 +29,10 @@ if (isset($_GET['title']) and isset($_GET['season'])) {
     }
     else {
 	// get tvshow id by title
-	$sql="SELECT ID FROM tvshow WHERE TITLE = '".mysql_real_escape_string($get_title)."';";
-	$ergebnis = mysql_query($sql, $verbindung);
-	$zeile = mysql_fetch_row($ergebnis);
-	if (mysql_errno() == '0') {
+	$sql="SELECT ID FROM tvshow WHERE TITLE = '".mysqli_real_escape_string($verbindung, $get_title)."';";
+	$ergebnis = mysqli_query($verbindung, $sql);
+	$zeile = mysqli_fetch_row($ergebnis);
+	if (mysqli_errno($verbindung) == '0') {
 	    $dummy++;
 	}
         else {
@@ -42,8 +42,8 @@ if (isset($_GET['title']) and isset($_GET['season'])) {
 
 	// insert new season for tvshow
 	$sql = "INSERT INTO season (ID, SEASON_NUMBER, TVSHOW_ID) VALUES (NULL, '".$get_season."', '".$tvshowid."');";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
 	    $dummy++;
 	}
         else {
@@ -72,11 +72,11 @@ if (!isset($_GET['title']) and !isset($_GET['season'])) {
     include 'inc/config.inc';
     //new structure
     $sql="SELECT TITLE FROM tvshow GROUP BY TITLE ORDER BY TITLE ASC;";
-    $ergebnis = mysql_query($sql, $verbindung);
-    while($zeile = mysql_fetch_array($ergebnis)){
+    $ergebnis = mysqli_query($verbindung, $sql);
+    while($zeile = mysqli_fetch_array($ergebnis, MYSQLI_BOTH)){
         $selecttitle = $selecttitle."<option>".$zeile[0]."</option>";
     }
-    if (mysql_errno() == '0') {
+    if (mysqli_errno($verbindung) == '0') {
         $dummy++;
     }
     else {

@@ -33,10 +33,10 @@ else {
     $get_imdb = $_GET['imdb'];
     include 'inc/config.inc';
 
-    $sql="SELECT TITLE FROM tvshow WHERE TITLE = '".mysql_real_escape_string($get_title)."' LIMIT 1;";
-    $ergebnis = mysql_query($sql, $verbindung);
-    $zeile = mysql_fetch_row($ergebnis);
-    if (mysql_errno() == '0') {
+    $sql="SELECT TITLE FROM tvshow WHERE TITLE = '".mysqli_real_escape_string($verbindung, $get_title)."' LIMIT 1;";
+    $ergebnis = mysqli_query($verbindung, $sql);
+    $zeile = mysqli_fetch_row($ergebnis);
+    if (mysqli_errno($verbindung) == '0') {
 	$dummy++;
     }
     else {
@@ -66,9 +66,9 @@ else {
     }
     else {
 	$dummy = 0;
-	$sql = "INSERT INTO tvshow (ID, TITLE, IMDBNUMBER, KODI_ID) VALUES (NULL, '".mysql_real_escape_string($get_title)."', '".$get_imdb."', '0')";
-	$ergebnis = mysql_query($sql, $verbindung);
-	if (mysql_errno() == '0') {
+	$sql = "INSERT INTO tvshow (ID, TITLE, IMDBNUMBER, KODI_ID) VALUES (NULL, '".mysqli_real_escape_string($verbindung, $get_title)."', '".$get_imdb."', '0')";
+	$ergebnis = mysqli_query($verbindung, $sql);
+	if (mysqli_errno($verbindung) == '0') {
     	    $dummy++;
 	}
 	else {
